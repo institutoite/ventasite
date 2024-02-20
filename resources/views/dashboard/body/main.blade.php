@@ -6,6 +6,7 @@
         <title>VENTA ITE</title>
 
         <!-- Favicon -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
         <link rel="shortcut icon" href="{{ asset('assets/images/logo/logo-min.png') }}"/>
         <link rel="stylesheet" href="{{ asset('assets/css/backend-plugin.min.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/backend.css?v=1.0.0') }}">
@@ -43,6 +44,7 @@
     @yield('specificpagescripts')
 
     <!-- App JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('assets/js/app.js') }}"></script>
 </body>
 </html>

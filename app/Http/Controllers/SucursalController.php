@@ -63,4 +63,9 @@ class SucursalController extends Controller
     {
         //
     }
+
+    public function getSucuardales(){
+        $sucursales = Sucursal::all();
+        return response()->json($sucursales);
+    }
 }

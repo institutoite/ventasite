@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Sucursal extends Model
 {
     use HasFactory;
-    public function productos()
+    public function products()
     {
         return $this->belongsToMany(Product::class, 'product_sucursal')
             ->withPivot(['stock', 'price', 'last_restock_date', 'barcode', 'notes']);

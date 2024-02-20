@@ -17,6 +17,7 @@ use App\Http\Controllers\Dashboard\PosController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\SucursalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,7 +88,10 @@ Route::middleware(['permission:product.menu'])->group(function () {
     Route::post('/products/import', [ProductController::class, 'importStore'])->name('products.importStore');
     Route::get('/products/export', [ProductController::class, 'exportData'])->name('products.exportData');
     Route::get('/products/agregar', [ProductController::class, 'agragarProductosAunaSucursal'])->name('agregar.productos');
+    Route::post('/products/agregar/ajax', [ProductController::class, 'guardarProductosAunaSucursal'])->name('agregar.productos.guardar');
     Route::resource('/products', ProductController::class);
+
+    Route::get('/sucursales/get',[SucursalController::class,"getSucuardales"])->name("get.sucursales");
 });
 
 // ====== CATEGORY PRODUCTS ======

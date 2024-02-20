@@ -144,27 +144,36 @@
 
 {{-- modal para agragar mas productos existentes --}}
 <div class="modal fade" id="form_mas_productos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+          <h1 class="modal-title fs-5" id="titulo_modal">Proveyendo </h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
-            <div class="mb-2">
-              <label for="recipient-name" class="col-form-label">Recipient:</label>
-              <input type="text" class="form-control" id="recipient-name">
-            </div>
-            <div class="mb-2">
-              <label for="message-text" class="col-form-label">Message:</label>
-              <textarea class="form-control" id="message-text"></textarea>
-            </div>
-          </form>
+            <form>
+                <input class="form-control" hidden type="number" name="product_id" id="product_id">
+                <div class="input-group">
+                    <input min="0" type="number" class="form-control" value="1" id="stock" placeholder="Ingrese cantidad">
+                    <button class="btn btn-outline-secondary" type="button" id="incrementar">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="16"></line>
+                            <line x1="8" y1="12" x2="16" y2="12"></line>
+                        </svg>
+                    </button>
+                    <button class="btn btn-outline-secondary" id="decrementar">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                    </button>
+                </div>
+                
+                <select class="form-select form-select-lg mb-3" id="sucursal_select" aria-label="Large select example">
+                </select>
+            </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Send message</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" id="guardando" class="btn btn-primary">Guardar</button>
         </div>
       </div>
     </div>
@@ -175,17 +184,60 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function() {
+            let producto_id;
+            function incrementCantidad(){
+                cantidad_atual=parseInt($("#stock").val());
+                $("#stock").val(cantidad_atual+1);
+                console.log("incrementando");
+            }
+            function decrementCantidad(){
+                cantidad_atual=parseInt($("#stock").val());
+                if(cantidad_atual>0)
+                    $("#stock").val(cantidad_atual-1);
+                console.log("decrementando");
+            }
+
+            $("#incrementar").on("click",function(){
+                incrementCantidad();
+            })
+            $("#decrementar").on("click",function(){
+                decrementCantidad();
+            })
+
             $("table").on("click",".agregarproducto",function(e){
                 e.preventDefault();
-                var id = $(this).closest("tr").attr("id");
-                console.log(id);
+                producto_id = $(this).closest("tr").attr("id");
+                console.log(producto_id);
+                
                 $.ajax({
                     url: "{{ route('agregar.productos') }}",
                     method:"get",
                     data: {
-                        producto_id: id
+                        producto_id: producto_id
                     },
                     success: function(data) {
+                        console.log(data);
+                        $("#titulo_modal").text("Probeyendo: "+data.product_name)
+                        try {
+                            $.ajax({
+                                url: "{{ route('get.sucursales') }}", // La URL a la que se hará la solicitud
+                                method: 'GET', // El método HTTP (en este caso, GET)
+                                dataType: 'json', // El tipo de datos esperado en la respuesta (en este caso, JSON)
+                                success: function(sucursales) {
+                                    $("#sucursal_select").empty();
+                                    $("#product_id").val(data);
+                                    
+                                    $("#sucursal_select").append(`<option>Elija una sucursal</option>`);
+                                    sucursales.forEach(sucursal => {
+                                        $("#sucursal_select").append(`<option value=${sucursal.id}>${sucursal.name}</option>`);
+                                    });
+                                },
+                            });
+
+                        } catch (error) {
+                            // Si hay un error, maneja el error
+                            console.error('Hubo un error al obtener las sucursales:', error);
+                        }
                         $("#form_mas_productos").modal("show");
                     },
                     error: function(data) {
@@ -193,6 +245,29 @@
                     }
                 });
             })
+            $("#guardando").on("click",function(e){
+                e.preventDefault();
+                console.log("click guardando");
+                $("#form_mas_productos").modal("hide");
+                $.ajax({
+                    url: "{{ route('agregar.productos.guardar') }}",
+                    method:"post",
+                    data: {
+                        product_id: producto_id,
+                        stock: $("#stock").val(),
+                        sucursal_id: $("#sucursal_select").val(),
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        $("#form_mas_productos").modal("hide");
+                        //location.reload();
+                    },
+                    error: function(data) {
+                        console.log('Error:', data);
+                    }
+                });
+            });
         } );
     </script>
 @endsection

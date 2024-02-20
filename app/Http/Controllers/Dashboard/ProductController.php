@@ -301,32 +301,30 @@ class ProductController extends Controller
     }
 
     public function agragarProductosAunaSucursal(Request $request){
-        return response()->json($request->producto_id);
+        $product=Product::findOrFail($request->producto_id);
+        return response()->json($product);
     }
 
-    public function addProductToBranch(Request $request, $sucursal_id)
+    public function guardarProductosAunaSucursal(Request $request)
     {
-        // Validar la solicitud
+
+        // return response()->json([$request->all()]);
+        //Validar la solicitud
         $request->validate([
             'product_id' => 'required|exists:products,id',
+            'sucursal_id' => 'required|exists:sucursals,id',
             'stock' => 'required|integer|min:0',
-            'price' => 'required|numeric|min:0',
-            'last_restock_date' => 'date', // Campo opcional
-            'barcode' => 'nullable|string', // Campo opcional
-            'notes' => 'nullable|string', // Campo opcional
         ]);
 
         // Obtener el producto y la sucursal
         $product = Product::findOrFail($request->product_id);
-        $sucursal = Sucursal::findOrFail($sucursal_id);
+        $sucursal = Sucursal::findOrFail($request->sucursal_id);
 
         // Agregar el producto a la sucursal con la información proporcionada
         $sucursal->products()->attach($product->id, [
             'stock' => $request->stock,
-            'price' => $request->price,
-            'last_restock_date' => $request->input('last_restock_date', null),
-            'barcode' => $request->input('barcode', null),
-            'notes' => $request->input('notes', null),
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         // Devolver una respuesta de éxito
