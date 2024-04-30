@@ -50,7 +50,7 @@
                                 </div>
                                 @enderror
                             </div>
-                            <div class="form-group col-md-6">
+                            {{-- <div class="form-group col-md-6">
                                 <label for="shopname">Nombre de tienda <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('shopname') is-invalid @enderror" id="shopname" name="shopname" value="{{ old('shopname') }}" required>
                                 @error('shopname')
@@ -58,8 +58,8 @@
                                     {{ $message }}
                                 </div>
                                 @enderror
-                            </div>
-                            <div class="form-group col-md-6">
+                            </div> --}}
+                            {{-- <div class="form-group col-md-6">
                                 <label for="email">Correo del cliente <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required>
                                 @error('email')
@@ -67,7 +67,7 @@
                                     {{ $message }}
                                 </div>
                                 @enderror
-                            </div>
+                            </div> --}}
                             <div class="form-group col-md-6">
                                 <label for="phone">Teléfono del cliente <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone') }}" required>
@@ -77,7 +77,7 @@
                                 </div>
                                 @enderror
                             </div>
-                            <div class="form-group col-md-6">
+                            {{-- <div class="form-group col-md-6">
                                 <label for="account_holder">Titular de la cuenta</label>
                                 <input type="text" class="form-control @error('account_holder') is-invalid @enderror" id="account_holder" name="account_holder" value="{{ old('account_holder') }}">
                                 @error('account_holder')
@@ -85,8 +85,8 @@
                                     {{ $message }}
                                 </div>
                                 @enderror
-                            </div>
-                            <div class="form-group col-md-6">
+                            </div> --}}
+                            {{-- <div class="form-group col-md-6">
                                 <label for="bank_name">Nombre del banco</label>
                                 <select class="form-control @error('bank_name') is-invalid @enderror" name="bank_name">
                                     <option value="">Seleccionar año..</option>
@@ -101,8 +101,8 @@
                                     {{ $message }}
                                 </div>
                                 @enderror
-                            </div>
-                            <div class="form-group col-md-6">
+                            </div> --}}
+                            {{-- <div class="form-group col-md-6">
                                 <label for="account_number">Número de la cuenta</label>
                                 <input type="text" class="form-control @error('account_number') is-invalid @enderror" id="account_number" name="account_number" value="{{ old('account_number') }}">
                                 @error('account_number')
@@ -110,8 +110,8 @@
                                     {{ $message }}
                                 </div>
                                 @enderror
-                            </div>
-                            <div class="form-group col-md-6">
+                            </div> --}}
+                            {{-- <div class="form-group col-md-6">
                                 <label for="bank_branch">Sucursal bancaria</label>
                                 <input type="text" class="form-control @error('bank_branch') is-invalid @enderror" id="bank_branch" name="bank_branch" value="{{ old('bank_branch') }}">
                                 @error('bank_branch')
@@ -119,8 +119,8 @@
                                     {{ $message }}
                                 </div>
                                 @enderror
-                            </div>
-                            <div class="form-group col-md-6">
+                            </div> --}}
+                            {{-- <div class="form-group col-md-6">
                                 <label for="city">Ciudad del cliente <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city') }}" required>
                                 @error('city')
@@ -128,7 +128,7 @@
                                     {{ $message }}
                                 </div>
                                 @enderror
-                            </div>
+                            </div> --}}
                             <div class="form-group col-md-12">
                                 <label for="address">Dirección del cliente <span class="text-danger">*</span></label>
                                 <textarea class="form-control @error('address') is-invalid @enderror" name="address" required>{{ old('address') }}</textarea>

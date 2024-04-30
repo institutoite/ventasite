@@ -4,12 +4,16 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Sucursal;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function index(){
+        
+      
         return view('dashboard.index', [
             'total_paid' => Order::sum('pay'),
             'total_due' => Order::sum('due'),
@@ -19,3 +23,4 @@ class DashboardController extends Controller
         ]);
     }
 }
+

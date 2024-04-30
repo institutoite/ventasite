@@ -17,12 +17,210 @@
                     </div>
                 </div>
 
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ str_replace('validation.', '', $error) }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <div class="card-body">
-                    <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('products.update', $producto->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('put')
                         <!-- begin: Input Image -->
-                        <div class="form-group row align-items-center">
+                        <div class=" row align-items-center">
+                            <div class="form-group col-md-3">
+                                <label for="product_name">Nombre del producto <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('product_name') is-invalid @enderror" id="product_name" name="product_name" value="{{ $producto->product_name }}" required>
+                                @error('product_name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="category_id">Categoría <span class="text-danger">*</span></label>
+                                <select class="form-control" name="category_id" required>
+                                    <option disabled>-- Selecciona una categoría --</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}" {{ isset($producto) && $producto->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                                
+                                @error('category_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="almacen_id">Almacen <span class="text-danger">*</span></label>
+                                <select class="form-control" name="almacen_id" required>
+                                    <option disabled>-- Seleccionar almacén --</option>
+                                    @foreach ($almacens as $almacen)
+                                        <option value="{{ $almacen->id }}" {{ isset($producto) && $producto->almacen_id == $almacen->id ? 'selected' : '' }}>{{ $almacen->almacen }}</option>
+                                    @endforeach
+                                </select>
+                                
+                                @error('almacen_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="marca_id">Marca <span class="text-danger">*</span></label>
+                                <select class="form-control" name="marca_id" required>
+                                    <option disabled>-- Seleccionar marca --</option>
+                                    @foreach ($marcas as $marca)
+                                        <option value="{{ $marca->id }}" {{ isset($producto) && $producto->marca_id == $marca->id ? 'selected' : '' }}>{{ $marca->marca }}</option>
+                                    @endforeach
+                                </select>
+                                @error('marca_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label for="buying_price">Precio1 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('buying_price') is-invalid @enderror" id="buying_price" name="buying_price" value="{{ $producto->buying_price }}" required>
+                                @error('buying_price')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="precio1">Precio1 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('precio1') is-invalid @enderror" id="precio1" name="precio1" value="{{ $producto->precio1 }}" required>
+                                @error('precio1')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="precio2">Precio2 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('precio2') is-invalid @enderror" id="precio2" name="precio2" value="{{ $producto->precio2 }}" required>
+                                @error('precio2')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="precio3">Precio3 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('precio3') is-invalid @enderror" id="precio3" name="precio3" value="{{ $producto->precio3 }}" required>
+                                @error('precio3')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="precio4">Precio4 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('precio4') is-invalid @enderror" id="precio4" name="precio4" value="{{ $producto->precio4 }}" required>
+                                @error('precio4')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                                <img class="imagen rounded float-right img-fluid img-thumbnail" src="{{ asset('storage/products/'.$producto->product_image) }}" alt="" >
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                                <img class="imagen rounded float-right img-fluid img-thumbnail" src="{{ asset('storage/products/'.$producto->imagen2) }}" alt="" >
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                                <img class="imagen rounded float-right img-fluid img-thumbnail" src="{{ asset('storage/products/'.$producto->imagen3) }}" alt="" >
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                                <div class="form-floating mb-3">
+                                    <input type="file" class="form-control" id="product_image" name="product_image">
+                                    <label for="foto">foto</label>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                                <div class="form-floating mb-3">
+                                    <input type="file" class="form-control" id="imagen2" name="imagen2">
+                                    <label for="foto">foto</label>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                                <div class="form-floating mb-3">
+                                    <input type="file" class="form-control" id="imagen3" name="imagen3">
+                                    <label for="foto">foto</label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- end: Input Data -->
+                        <div class="mt-2">
+                            <button type="submit" class="btn btn-primary mr-2">Save</button>
+                            <a class="btn bg-danger" href="{{ route('products.index') }}">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page end  -->
+</div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/buffer.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/filetype.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/piexif.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/sortable.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/fileinput.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/locales/LANG.js"></script>
+
+<script>
+       $(document).ready(function() {
+            $("#input-id").fileinput(
+            {
+                maxFileCount: 5,
+                showUpload: false,
+            });
+        })
+        
+
+    $('#buying_date').datepicker({
+        uiLibrary: 'bootstrap4',
+        format: 'yyyy-mm-dd'
+        // https://gijgo.com/datetimepicker/configuration/format
+    });
+    $('#expire_date').datepicker({
+        uiLibrary: 'bootstrap4',
+        format: 'yyyy-mm-dd'
+        // https://gijgo.com/datetimepicker/configuration/format
+    });
+</script>
+
+@include('components.preview-img-form')
+@endsection
+
+{{-- 
+    
+<div class="form-group row align-items-center">
                             <div class="col-md-12">
                                 <div class="profile-img-edit">
                                     <div class="crm-profile-img-edit">
@@ -139,32 +337,5 @@
                                 </div>
                                 @enderror
                             </div>
-                        </div>
-                        <!-- end: Input Data -->
-                        <div class="mt-2">
-                            <button type="submit" class="btn btn-primary mr-2">Save</button>
-                            <a class="btn bg-danger" href="{{ route('products.index') }}">Cancel</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Page end  -->
-</div>
-
-<script>
-    $('#buying_date').datepicker({
-        uiLibrary: 'bootstrap4',
-        format: 'yyyy-mm-dd'
-        // https://gijgo.com/datetimepicker/configuration/format
-    });
-    $('#expire_date').datepicker({
-        uiLibrary: 'bootstrap4',
-        format: 'yyyy-mm-dd'
-        // https://gijgo.com/datetimepicker/configuration/format
-    });
-</script>
-
-@include('components.preview-img-form')
-@endsection
+                        </div>    
+--}}

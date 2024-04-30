@@ -12,7 +12,7 @@ class DatabaseBackupController extends Controller
 {    public function index()
     {
         return view('database.index', [
-            'files' => File::allFiles(storage_path('app/POS'))
+            'files' => File::allFiles(storage_path('app\POS'))
         ]);
     }
 

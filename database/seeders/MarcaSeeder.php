@@ -12,11 +12,9 @@ class MarcaSeeder extends Seeder
      */
     public function run(): void
     {
-        Marca::create(['marca' => 'Winner']);
-        Marca::create(['marca' => 'Canon']);
-        Marca::create(['marca' => 'Mabel']);
-        Marca::create(['marca' => 'Coco Cola']);
-        Marca::create(['marca' => 'Moyu']);
-        Marca::create(['marca' => 'Mayu']);
+        Marca::create(['marca' => 'Total']);
+        Marca::create(['marca' => 'Ferton']);
+        Marca::create(['marca' => 'Ketaquic']);
+        Marca::create(['marca' => 'Uyustools']);
     }
 }

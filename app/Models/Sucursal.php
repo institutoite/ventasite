@@ -11,7 +11,11 @@ class Sucursal extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class, 'product_sucursal')
-            ->withPivot(['stock', 'price', 'last_restock_date', 'barcode', 'notes']);
+            ->withPivot(['stock']);
+    }
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
     }
 
 }

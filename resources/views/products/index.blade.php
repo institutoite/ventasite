@@ -74,55 +74,54 @@
                         <tr class="ligth ligth-data">
                             <th>N°.</th>
                             <th>Foto</th>
-                            <th>@sortablelink('product_name', 'Nombre')</th>
-                            <th>@sortablelink('category.name', 'Categoria')</th>
-                            <th>@sortablelink('supplier.name', 'Proveedor')</th>
-                            <th>@sortablelink('selling_price', 'Precio')</th>
+                            <th>Nombre</th>
+                            <th>Categoria</th>
+                            <th>Precio</th>
                             <th>Estado</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
                     <tbody class="ligth-body">
                         @forelse ($products as $product)
-                        <tr id="{{ $product->id }}">
-                            <td>{{ (($products->currentPage() * 10) - 10) + $loop->iteration  }}</td>
-                            <td>
-                                <img class="avatar-60 rounded" src="{{ $product->product_image ? asset('storage/products/'.$product->product_image) : asset('assets/images/product/default.webp') }}">
-                            </td>
-                            <td>{{ $product->product_name }}</td>
-                            <td>{{ $product->category->name }}</td>
-                            <td>{{ $product->supplier->name }}</td>
-                            <td>{{ $product->selling_price }}</td>
-                            <td>
-                                @if ($product->expire_date > Carbon\Carbon::now()->format('Y-m-d'))
-                                    <span class="badge rounded-pill bg-success">Válido</span>
-                                @else
-                                    <span class="badge rounded-pill bg-danger">Inválido</span>
-                                @endif
-                            </td>
-                            <td>
-                                
+                            <tr id="{{ $product->id }}">
+                                <td>{{ (($products->currentPage() * 10) - 10) + $loop->iteration  }}</td>
+                                <td>
+                                    <img class="avatar-60 rounded" src="{{ $product->product_image ? asset('storage/products/'.$product->product_image) : asset('assets/images/product/default.webp') }}">
+                                </td>
+                                <td>{{ $product->product_name }}x</td>
+                                <td>{{ $product->category->name }}</td>
+                                {{-- <td>{{ $product->supplier->name }}</td> --}}
+                                <td>{{ $product->selling_price }}</td>
+                                <td>
+                                    @if ($product->expire_date > Carbon\Carbon::now()->format('Y-m-d'))
+                                        <span class="badge rounded-pill bg-success">Válido</span>
+                                    @else
+                                        <span class="badge rounded-pill bg-danger">Inválido</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    
 
-                                <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="margin-bottom: 5px">
-                                    @method('delete')
-                                    @csrf
-                                    <div class="d-flex align-items-center list-action">
-                                        <a class="btn btn-info mr-2 agregarproducto">
-                                            <i class="fa-regular fa-square-plus mr-0"></i>
-                                        </a>
+                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="margin-bottom: 5px">
+                                        @method('delete')
+                                        @csrf
+                                        <div class="d-flex align-items-center list-action">
+                                            <a class="btn btn-info mr-2 agregarproducto">
+                                                <i class="fa-regular fa-square-plus mr-0"></i>
+                                            </a>
 
-                                        <a class="btn btn-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"
-                                            href="{{ route('products.show', $product->id) }}"><i class="ri-eye-line mr-0"></i>
-                                        </a>
-                                        
-                                        <a class="btn btn-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
-                                            href="{{ route('products.edit', $product->id) }}"><i class="ri-pencil-line mr-0"></i>
-                                        </a>
-                                            <button type="submit" class="btn btn-warning mr-2 border-none" onclick="return confirm('Are you sure you want to delete this record?')" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="ri-delete-bin-line mr-0"></i></button>
-                                    </div>
-                                </form>
-                            </td>
-                        </tr>
+                                            <a class="btn btn-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"
+                                                href="{{ route('products.show', $product->id) }}"><i class="ri-eye-line mr-0"></i>
+                                            </a>
+                                            
+                                            <a class="btn btn-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
+                                                href="{{ route('products.edit', $product->id) }}"><i class="ri-pencil-line mr-0"></i>
+                                            </a>
+                                                <button type="submit" class="btn btn-warning mr-2 border-none" onclick="return confirm('Are you sure you want to delete this record?')" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="ri-delete-bin-line mr-0"></i></button>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
 
                         @empty
                         <div class="alert text-white bg-danger" role="alert">

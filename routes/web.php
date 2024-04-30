@@ -17,6 +17,7 @@ use App\Http\Controllers\Dashboard\PosController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\AlmacenController;
 use App\Http\Controllers\SucursalController;
 
 /*
@@ -53,6 +54,11 @@ Route::middleware(['permission:user.menu'])->group(function () {
 // ====== CUSTOMERS ======
 Route::middleware(['permission:customer.menu'])->group(function () {
     Route::resource('/customers', CustomerController::class);
+});
+
+// ====== ALMACENS ======
+Route::middleware(['permission:customer.menu'])->group(function () {
+    Route::resource('/almacens', AlmacenController::class);
 });
 
 // ====== SUPPLIERS ======

@@ -21,15 +21,20 @@
                                             <label>Correo electrónico/nombre de usuario</label>
                                         </div>
                                         @error('username')
-                                        <div class="mb-4" style="margin-top: -20px">
-                                            <div class="text-danger small">Nombre de usuario o contraseña incorrecta.</div>
-                                        </div>
+                                            <div class="mb-4" style="margin-top: -20px">
+                                                <div class="text-danger small">Nombre de usuario o contraseña incorrecta.</div>
+                                            </div>
                                         @enderror
                                         @error('email')
-                                        <div class="mb-4" style="margin-top: -20px">
-                                            <div class="text-danger small">Nombre de usuario o contraseña incorrecta.</div>
-                                        </div>
+                                            <div class="mb-4" style="margin-top: -20px">
+                                                <div class="text-danger small">Nombre de usuario o contraseña incorrecta.</div>
+                                            </div>
                                         @enderror
+                                        {{-- @error('sucursal_id')
+                                            <div class="mb-4" style="margin-top: -20px">
+                                                <div class="text-danger small">El campo sucursal es campo obligatorio.</div>
+                                            </div>
+                                        @enderror --}}
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="floating-label form-group">
@@ -37,6 +42,7 @@
                                             <label>Contraseña</label>
                                         </div>
                                     </div>
+                                    <input type="number" name="sucursal_id" hidden value="1">
                                     <div class="col-lg-6">
                                         <p>
                                             ¿No eres miembro todavía? <a href="{{ route('register') }}" class="text-primary">Registrarse</a>
@@ -60,3 +66,5 @@
     </div>
 </div>
 @endsection
+
+

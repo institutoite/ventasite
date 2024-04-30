@@ -92,4 +92,8 @@ class User extends Authenticatable
             return $hasPermission;
         }
     }
+    public function sucursales()
+    {
+        return $this->belongsToMany(Sucursal::class);
+    }
 }

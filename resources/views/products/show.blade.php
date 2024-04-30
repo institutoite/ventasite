@@ -43,16 +43,81 @@
 
                 <div class="card-body">
                     <!-- begin: Show Data -->
-                    <div class="form-group row align-items-center">
-                        <div class="col-md-12">
-                            <div class="profile-img-edit">
-                                <div class="crm-profile-img-edit">
-                                    <img class="crm-profile-pic rounded-circle avatar-100" id="image-preview" src="{{ $product->product_image ? asset('storage/products/'.$product->product_image) : asset('assets/images/product/default.webp') }}" alt="profile-pic">
+                   
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    MOSTRAR PRODUCTO {{ $product->product_name }}
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-hover table-bordered table-striped">
+                                        <tr>
+                                          <th>PROPIEDAD</th>
+                                          <th>VALOR</th>
+                                        </tr>
+                                        <tr>
+                                          <th>Codigo</th>
+                                          <td>{{ $product->product_code }}</td>
+                                        </tr>
+                                        <tr>
+                                          <th>Nombre del producto</th>
+                                          <td>{{ $product->product_name }}</td>
+                                        </tr>
+                                        <tr>
+                                          <th>Categoría</th>
+                                          <td>{{ $product->category->name }}</td>
+                                        </tr>
+                                        <tr>
+                                          <th>Almacen</th>
+                                          <td>{{ $product->almacen->almacen }}</td>
+                                        </tr>
+                                        <tr>
+                                          <th>Marca</th>
+                                          <td>{{ $product->marca->marca }}</td>
+                                        </tr>
+                                        
+                                            @can('ver.preciocompra', $product)
+                                                <tr>
+                                                    <th>Precio Compra</th>
+                                                    <td>{{ $product->buying_price }}</td>
+                                                </tr>
+                                            @endcan
+
+                                        <tr>
+                                          <th>Precio 1</th>
+                                          <td>{{ $product->precio1 }}</td>
+                                        </tr>
+                                        <tr>
+                                          <th>Precio 2</th>
+                                          <td>{{ $product->precio2 }}</td>
+                                        </tr>
+                                        <tr>
+                                          <th>Precio 3</th>
+                                          <td>{{ $product->precio3 }}</td>
+                                        </tr>
+                                        <tr>
+                                          <th>Precio 4</th>
+                                          <td>{{ $product->precio4 }}</td>
+                                        </tr>
+                                      </table>
+                                      
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group row align-items-center">
+                                <div class="col-md-12">
+                                    <div class="profile-img-edit">
+                                        <div class="crm-profile-img-edit">
+                                            <img class="" id="image-preview" src="{{ $product->product_image ? asset('storage/products/'.$product->product_image) : asset('assets/images/product/default.webp') }}" alt="profile-pic">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <div class=" row align-items-center">
                         <div class="form-group col-md-12">
                             <label>Nombre del producto</label>
@@ -62,35 +127,30 @@
                             <label>Categoría</label>
                             <input type="text" class="form-control bg-white" value="{{  $product->category->name }}" readonly>
                         </div>
+                       
                         <div class="form-group col-md-6">
-                            <label>Proveedor</label>
-                            <input type="text" class="form-control bg-white" value="{{  $product->supplier->name }}" readonly>
+                            <label>Almacen</label>
+                            <input type="text" class="form-control bg-white" value="{{  $product->almacen->almacen }}" readonly>
                         </div>
+                    
                         <div class="form-group col-md-6">
-                            <label>Garage del producto</label>
-                            <input type="text" class="form-control bg-white" value="{{  $product->product_garage }}" readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Almacen del producto</label>
-                            <input type="text" class="form-control bg-white" value="{{  $product->product_store }}" readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Fecha de compra</label>
-                            <input class="form-control bg-white" id="buying_date" value="{{ $product->buying_date }}" readonly/>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Fecha de caducidad</label>
-                            <input class="form-control bg-white" id="expire_date" value="{{ $product->expire_date }}" readonly />
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Precio de compra</label>
+                            <label>Precio 1</label>
                             <input type="text" class="form-control bg-white" value="{{  $product->buying_price }}" readonly>
                         </div>
                         <div class="form-group col-md-6">
-                            <label>Precio de venta</label>
-                            <input type="text" class="form-control bg-white" value="{{  $product->selling_price }}" readonly>
+                            <label>Precio 2</label>
+                            <input type="text" class="form-control bg-white" value="{{  $product->precio2 }}" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>precio 3</label>
+                            <input type="text" class="form-control bg-white" value="{{  $product->precio3 }}" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>precio 4</label>
+                            <input type="text" class="form-control bg-white" value="{{  $product->precio4 }}" readonly>
                         </div>
                     </div>
+                    
                     <!-- end: Show Data -->
                 </div>
             </div>

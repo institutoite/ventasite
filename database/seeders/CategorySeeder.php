@@ -13,22 +13,12 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            'Dulces',
-            'Galletas',
-            'Sodas',
-            'chicles',
-            'cubos',
-            'cuadernos',
-            'borradores',
-            'tajadores',
-            'lapices',
-            'lapiceros',
-            'marcadores',
-
-            // Agrega más categorías si lo deseas
+            'Taladro',
+            'Amoladora',
+            'Hidrolavadora',
+            'Power',
         ];
 
-        // Itera sobre el array y crea una nueva entrada en la base de datos para cada categoría
         foreach ($categories as $category) {
                 Category::create([
                 'name' => $category,

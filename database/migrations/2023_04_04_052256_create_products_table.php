@@ -14,26 +14,39 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('product_name');
-            
             $table->unsignedBigInteger('category_id');
+            
             $table->foreign("category_id")->references("id")->on("categories");
             
             $table->unsignedBigInteger('marca_id');
             $table->foreign("marca_id")->references("id")->on("marcas");
 
+            $table->unsignedBigInteger('supplier_id')->nullable();
+           
             
-            $table->unsignedBigInteger('supplier_id');
-            $table->foreign("supplier_id")->references("id")->on("suppliers");
-            
+            $table->unsignedBigInteger('almacen_id')->nullable();
+            $table->foreign("almacen_id")->references("id")->on("almacens");
+
             $table->string('product_code')->nullable();
-            $table->string('product_garage')->nullable();
+
             $table->string('product_image')->nullable();
-            $table->integer('product_store')->nullable();
-            $table->date('buying_date')->nullable();
-            $table->string('expire_date')->nullable();
+            $table->string('imagen2')->nullable();
+            $table->string('imagen3')->nullable();
+            
             $table->decimal('buying_price')->nullable();
             $table->decimal('selling_price')->nullable();
+            $table->decimal('precio1')->nullable();
+            $table->decimal('precio2')->nullable();
+            $table->decimal('precio3')->nullable();
+            $table->decimal('precio4')->nullable();
+
+            $table->string('product_garage')->nullable();
+            $table->string('product_store')->nullable();
+            $table->date('buying_date')->nullable();
+            $table->date('expire_date')->nullable();
             $table->timestamps();
+
+            
         });
     }
 

@@ -43,15 +43,15 @@ class CustomerController extends Controller
         $rules = [
             'photo' => 'image|file|max:1024',
             'name' => 'required|string|max:50',
-            'email' => 'required|email|max:50|unique:customers,email',
+            'email' => 'nullable|email|max:50|unique:customers,email',
             'phone' => 'required|string|max:15|unique:customers,phone',
-            'shopname' => 'required|string|max:50',
+            'shopname' => 'nullable|string|max:50',
             'account_holder' => 'max:50',
             'account_number' => 'max:25',
             'bank_name' => 'max:25',
             'bank_branch' => 'max:50',
-            'city' => 'required|string|max:50',
-            'address' => 'required|string|max:100',
+            'city' => 'nullable|string|max:50',
+            'address' => 'nullable|string|max:100',
         ];
 
         $validatedData = $request->validate($rules);

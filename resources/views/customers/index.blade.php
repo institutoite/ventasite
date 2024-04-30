@@ -62,9 +62,7 @@
                             <th>N°</th>
                             <th>Foto</th>
                             <th>@sortablelink('name')</th>
-                            <th>@sortablelink('email')</th>
                             <th>@sortablelink('phone')</th>
-                            <th>@sortablelink('shopname')</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
@@ -76,9 +74,7 @@
                                 <img class="avatar-60 rounded" src="{{ $customer->photo ? asset('storage/customers/'.$customer->photo) : asset('assets/images/user/1.png') }}">
                             </td>
                             <td>{{ $customer->name }}</td>
-                            <td>{{ $customer->email }}</td>
-                            <td>{{ $customer->phone }}</td>
-                            <td>{{ $customer->shopname }}</td>
+                            <td> <a href="https://api.whatsapp.com/send?phone=591{{ $customer->phone }}" target="_blank">{{ $customer->phone }}</a></td>
                             <td>
                                 <div class="d-flex align-items-center list-action">
                                     <a class="badge badge-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"

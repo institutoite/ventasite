@@ -32,6 +32,7 @@ class LoginRequest extends FormRequest
             'email' => ['required_without:username', 'string', 'email', 'exists:users,email'],
             'username' => ['required_without:email', 'string', 'alpha_dash:ascii', 'exists:users,username'],
             'password' => ['required', 'string'],
+            'sucursal_id' => ['required'],
         ];
     }
 

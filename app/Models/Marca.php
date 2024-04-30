@@ -22,6 +22,12 @@ class Marca extends Model
         'id',
     ];
 
+    public function producto()
+    {
+        return $this->hasOne(Marca::class);
+    }
+   
+
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? false, function ($query, $search) {

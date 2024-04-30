@@ -24,6 +24,8 @@ return new class extends Migration
         });
     }
 
+    // en ventas que usuario vende cierta venta 
+
     /**
      * Reverse the migrations.
      */

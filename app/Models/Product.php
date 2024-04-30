@@ -38,6 +38,15 @@ class Product extends Model
         'supplier'
     ];
 
+    public function marca()
+    {
+        return $this->belongsTo(Marca::class);
+    }
+    public function almacen()
+    {
+        return $this->belongsTo(Almacen::class);
+    }
+
     public function category(){
         return $this->belongsTo(Category::class, 'category_id');
     }
