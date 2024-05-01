@@ -150,7 +150,9 @@ class ProductController extends Controller
         return $nombreArchivo;
     }
 
-  
+    public function showProduct(Product $product){
+        return view("products.showproduct",compact("product"));
+    }
 
     /**
      * Display the specified resource.
