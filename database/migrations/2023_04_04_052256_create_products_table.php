@@ -23,6 +23,8 @@ return new class extends Migration
 
             $table->unsignedBigInteger('supplier_id')->nullable();
            
+            $table->string('descripcion', 250)->nullable();
+            $table->boolean('estado')->default(1);
             
             $table->unsignedBigInteger('almacen_id')->nullable();
             $table->foreign("almacen_id")->references("id")->on("almacens");

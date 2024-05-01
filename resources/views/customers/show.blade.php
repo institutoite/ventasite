@@ -79,6 +79,17 @@
                             </div>
                         </li>
                       
+                        <li class="col-lg-12">
+                            <div class="form-group row">
+                                <div class="col-sm-3 col-4">
+                                    <label class="col-form-label">Empresa</label>
+                                </div>
+                                <div class="col-sm-9 col-8">
+                                    <input type="text" class="form-control bg-white" value="{{ $customer->empresa }}" readonly>
+                                </div>
+                            </div>
+                        </li>
+                      
                         
                         <li class="col-lg-12">
                             <div class="form-group row">

@@ -126,6 +126,18 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="descripcion">Descripción <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" value="{{ old('descripcion') }}" required>
+                                @error('descripcion')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
                          {{-- %%%%%%%%%%%%%%%%%%%%%%%%%% FIN PRECIOS --}}
                            
                         <input id="input-id" name="fotos[]" type="file" class="file" data-preview-file-type="text" multiple>

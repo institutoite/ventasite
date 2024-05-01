@@ -1,10 +1,184 @@
 <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Tienda</title>
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+}
+
+.right-icons {
+    display: flex;
+    align-items: center;
+}
+
+.search-panel {
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.product-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+    max-width: 100%;
+    height: auto;
+}
+
+.product-card h3 {
+    margin-top: 0;
+}
+
+.product-card .product-price {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.buy-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buy-button:hover {
+    background-color: #0056b3;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Barra superior -->
+    <div class="top-bar">
+        <div class="logo">
+            <!-- Logo de la empresa -->
+            <img src="logo.png" alt="Logo de la empresa">
+        </div>
+        <div class="right-icons">
+            <!-- Iconos de WhatsApp u otros -->
+            <img src="whatsapp.png" alt="WhatsApp">
+            <!-- Botón de login/logout -->
+            <button>Iniciar Sesión</button>
+        </div>
+    </div>
+    
+    <!-- Contenido principal -->
+    <div class="main-content">
+        <!-- Panel de búsqueda -->
+        <div class="search-panel">
+            <input type="text" id="search-input" placeholder="Buscar...">
+            <select id="category-select">
+                <option value="">Todas las categorías</option>
+                <!-- Opciones de categorías generadas dinámicamente -->
+            </select>
+        </div>
+
+        <!-- Lista de productos en tarjetas -->
+        <div class="product-list">
+            <!-- Tarjeta de ejemplo -->
+            <div class="product-card">
+                <img src="product-image.jpg" alt="Producto 1">
+                <h3>Nombre del Producto</h3>
+                <p>Descripción del producto</p>
+                <div class="product-price">$XX.XX</div>
+                <button class="buy-button">Comprar</button>
+            </div>
+            <!-- Otras tarjetas de productos se generarán dinámicamente -->
+        </div>
+    </div>
+
+    <!-- Script JavaScript (jQuery) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>
+
+
+
+{{-- 2<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido</title>
+    <!-- Agrega enlaces a tus hojas de estilo y scripts aquí -->
+</head>
+<body>
+    <!-- Barra superior -->
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px;">
+        <div>
+            <img src="ruta_al_logo_empresa.png" alt="Logo de la empresa" style="height: 50px;">
+        </div>
+        <div>
+            <!-- Iconos de WhatsApp u otros métodos de contacto -->
+            <img src="icono_whatsapp.png" alt="WhatsApp">
+        </div>
+    </div>
+
+    <!-- Contenedor principal -->
+    <div style="display: flex;">
+        <!-- Panel izquierdo con cuadro de búsqueda y filtro -->
+        <div style="flex: 0 0 20%; padding: 20px;">
+            <input type="text" id="search" placeholder="Buscar...">
+            <select id="category">
+                <option value="">Todas las categorías</option>
+                <!-- Aquí puedes cargar las opciones de categorías desde tu base de datos -->
+            </select>
+        </div>
+
+        <!-- Contenido principal -->
+        <div style="flex: 1; padding: 20px;">
+            <!-- Aquí puedes mostrar parte del nombre del producto -->
+            <h1>Bienvenido</h1>
+            <!-- Agrega tus productos aquí -->
+        </div>
+    </div>
+
+    <!-- Botón de compra -->
+    <div style="text-align: center; margin-bottom: 20px;">
+        <button style="padding: 10px 20px; font-size: 18px;">Comprar</button>
+    </div>
+
+    <!-- Script para la funcionalidad de búsqueda y filtrado -->
+    <script>
+        // Aquí puedes agregar tu código JavaScript para implementar AJAX y filtrar los productos
+    </script>
+</body>
+</html>
+
+ --}}
+
+
+
+
+
+{{-- 1 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sistema de Ventas</title>
+    <title>Jhimbo</title>
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/logo/logo-min.png') }}" />
     <!-- Fonts -->
@@ -131,4 +305,4 @@
     </div>
 </body>
 
-</html>
+</html> --}}

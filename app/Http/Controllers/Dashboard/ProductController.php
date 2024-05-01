@@ -14,9 +14,9 @@ use App\Models\Sucursal;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\Redirect;
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Xls;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -85,6 +85,7 @@ class ProductController extends Controller
             'category_id' => 'required|integer',
             'almacen_id' => 'required|integer',
             'product_garage' => 'string|nullable',
+            'descripcion' => 'string|required',
             'product_store' => 'string|nullable',
             'buying_date' => 'date_format:Y-m-d|max:10|nullable',
             'expire_date' => 'date_format:Y-m-d|max:10|nullable',
@@ -123,6 +124,7 @@ class ProductController extends Controller
         $producto->precio2=$request->precio2;
         $producto->precio3=$request->precio3;
         $producto->precio4=$request->precio4;
+        $producto->descripcion=$request->descripcion;
         $producto->product_garage=$request->product_garage;
         $producto->product_store=$request->product_store;
         $producto->buying_date=$request->buying_date;
@@ -205,6 +207,7 @@ class ProductController extends Controller
         $product->precio2=$request->precio2;
         $product->precio3=$request->precio3;
         $product->precio4=$request->precio4;
+        $product->descripcion=$request->descripcion;
         $product->product_garage=$request->product_garage;
         $product->product_store=$request->product_store;
         $product->buying_date=$request->buying_date;
@@ -251,13 +254,22 @@ class ProductController extends Controller
         /**
          * Delete photo if exists.
          */
-        if($product->product_image){
-            Storage::delete('public/products/' . $product->product_image);
-        }
+        // if($product->product_image){
+        //     Storage::delete('public/products/' . $product->product_image);
+        // }
 
-        Product::destroy($product->id);
+        // Product::destroy($product->id);
 
+        $product->estado = 0;
+        $product->save();
         return Redirect::route('products.index')->with('success', '¡El producto ha sido eliminado!');
+    }
+    public function darAlta(Request $request)
+    {
+        $product = Product::find($request->id);
+        $product->estado = 1;
+        $product->save();
+        return response()->json(["ok"=>"todo salio bien "]);
     }
 
     /**
@@ -288,12 +300,9 @@ class ProductController extends Controller
             $data = array();
             
             foreach ( $row_range as $row ) {
-                $vectorRutas=[];
                 if($sheet->getCell( 'H' . $row )->getValue()!=""){
                     $vectorImages=explode(",",$sheet->getCell( 'H' . $row )->getValue());
-                    
                     for ($k=0; $k < count($vectorImages) ; $k++) { 
-                    
                             $product_image = $vectorImages[$k];
                             $image_content = file_get_contents($product_image);
                             $image_name = basename($product_image);
@@ -435,27 +444,12 @@ class ProductController extends Controller
         return response()->json($product);
     }
 
-    // public function guardarProductosAunaSucursal(Request $request)
-    // {
-    //     $request->validate([
-    //         'product_id' => 'required|exists:products,id',
-    //         'sucursal_id' => 'required|exists:sucursals,id',
-    //         'stock' => 'required|integer|min:0',
-    //     ]);
-    //     $product = Product::findOrFail($request->product_id);
-    //     $sucursal = Sucursal::findOrFail($request->sucursal_id);
-    //     $sucursal->products()->attach($product->id, [
-    //         'stock' => $request->stock,
-    //         'created_at' => now(),
-    //         'updated_at' => now(),
-    //     ]);
-    //     return response()->json(['message' => 'Producto agregado a la sucursal correctamente'], 200);
-    // }
+    
     public function guardarProductosAunaSucursal(Request $request)
     {
         //return response()->json($request->all());
         // $request->validate([
-        //     'product_id' =>'required|exists:products,id',
+        //     'product_id' =>'delte|exists:products,id',
         //     'sucursal_id' =>'required|exists:sucursals,id',
         //     'stock' =>'required|integer|min:0',
         // ]);

@@ -41,7 +41,7 @@
                         <!-- end: Input Image -->
                         <!-- begin: Input Data -->
                         <div class=" row align-items-center">
-                            <div class="form-group col-md-6">
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                                 <label for="name">Nombre del cliente <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required>
                                 @error('name')
@@ -50,7 +50,16 @@
                                 </div>
                                 @enderror
                             </div>
-                            {{-- <div class="form-group col-md-6">
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                                <label for="empresa">empresa <span class="text-danger">(opcional)</span></label>
+                                <input type="text" class="form-control @error('empresa') is-invalid @enderror" id="empresa" name="empresa" value="{{ old('empresa') }}" required>
+                                @error('empresa')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            {{-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                                 <label for="shopname">Nombre de tienda <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('shopname') is-invalid @enderror" id="shopname" name="shopname" value="{{ old('shopname') }}" required>
                                 @error('shopname')
@@ -59,7 +68,7 @@
                                 </div>
                                 @enderror
                             </div> --}}
-                            {{-- <div class="form-group col-md-6">
+                            {{-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                                 <label for="email">Correo del cliente <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required>
                                 @error('email')
@@ -68,7 +77,7 @@
                                 </div>
                                 @enderror
                             </div> --}}
-                            <div class="form-group col-md-6">
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                                 <label for="phone">Teléfono del cliente <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone') }}" required>
                                 @error('phone')

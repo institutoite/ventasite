@@ -17,6 +17,7 @@ class Customer extends Model
         'phone',
         'address',
         'shopname',
+        'empresa',
         'photo',
         'account_holder',
         'account_number',

@@ -54,6 +54,8 @@ Route::middleware(['permission:user.menu'])->group(function () {
 // ====== CUSTOMERS ======
 Route::middleware(['permission:customer.menu'])->group(function () {
     Route::resource('/customers', CustomerController::class);
+    Route::post('/customer/import', [CustomerController::class, 'importStore'])->name('customer.importStore');
+    Route::get('/customer/import', [CustomerController::class, 'importView'])->name('customer.importView');
 });
 
 // ====== ALMACENS ======
@@ -96,9 +98,11 @@ Route::middleware(['permission:product.menu'])->group(function () {
     Route::get('/products/agregar', [ProductController::class, 'agragarProductosAunaSucursal'])->name('agregar.productos');
     Route::post('/products/agregar/ajax', [ProductController::class, 'guardarProductosAunaSucursal'])->name('agregar.productos.guardar');
     Route::resource('/products', ProductController::class);
-
+    Route::get('alta/products', [ProductController::class,"darAlta"])->name("producto.dar.alta");
+    
     Route::get('/sucursales/get',[SucursalController::class,"getSucuardales"])->name("get.sucursales");
 });
+
 
 // ====== CATEGORY PRODUCTS ======
 Route::middleware(['permission:category.menu'])->group(function () {

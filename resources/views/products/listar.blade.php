@@ -41,7 +41,7 @@
                 </thead>
                 <tbody>
                     @foreach ($productos as $producto)
-                        <tr class="{{ $producto->id }}">
+                        <tr id="{{ $producto->id }}">
                             <td>{{ $producto->id }}</td>
                             <td><img class="crm-profile-pic rounded-circle avatar-100" src="{{ $producto->product_image ? asset('storage/products/'.$producto->product_image) : asset('assets/images/product/default.webp') }}"></td>
                             <td>{{ $producto->product_code }}</td>
@@ -51,22 +51,26 @@
                             {{-- <td>{{ $producto->marca->marca }}</td>
                             <td>{{ $producto->category->name }}</td> --}}
                             <td>
+                                
                                 <form action="{{ route('products.destroy', $producto->id) }}" method="POST" style="margin-bottom: 5px">
                                     @method('delete')
                                     @csrf
                                     <div class="d-flex align-items-center list-action">
-        
                                         <a class="btn btn-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"
                                             href="{{ route('products.show', $producto->id) }}"><i class="ri-eye-line mr-0"></i>
                                         </a>
-                                        
                                         @can('editar.producto', $producto)
                                             <a class="btn btn-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
                                                 href="{{ route('products.edit', $producto->id) }}"><i class="ri-pencil-line mr-0"></i>
                                             </a>
                                         @endcan
+                                        @if ($producto->estado)
                                             <button type="submit" class="btn btn-warning mr-2 border-none" onclick="return confirm('Are you sure you want to delete this record?')" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="ri-delete-bin-line mr-0"></i></button>
+                                        @else
+                                            <a class="btn daralta"><i class="fa-solid fa-circle-up fa-beat-fade fa-2x text-success"></i></a>
+                                        @endif
                                     </div>
+                                    
                                 </form>
                             </td>
                         </tr>
@@ -87,6 +91,25 @@
  <script>
     $(document).ready(function() {
         $('#productos').DataTable({
+        });
+
+        $("table").on("click",".daralta",function(e){
+            e.preventDefault();
+            let id = $(this).closest("tr").attr("id");
+            console.log(id);
+            $.ajax({
+                url : "{{ route('producto.dar.alta') }}",
+                data : { id :  id},
+                type : 'GET',
+                dataType : 'json',
+                success : function(json) {
+                    console.log(json);
+                    window.location.reload();
+                },
+                error : function(xhr, status) {
+                    alert('Disculpe, existió un problema');
+                },
+            }); 
         });
     });
  </script>

@@ -18,6 +18,7 @@
                     <p class="mb-0">El panel de clientes optimiza datos, mejora la experiencia, asegurando retención fácilmente. </p>
                 </div>
                 <div>
+                    <a href="{{ route('customer.importView') }}" class="btn btn-success add-list">Importar</a>
                     <a href="{{ route('customers.create') }}" class="btn btn-primary add-list"><i class="fa-solid fa-plus mr-3"></i>Agregar cliente</a>
                     <a href="{{ route('customers.index') }}" class="btn btn-danger add-list"><i class="fa-solid fa-trash mr-3"></i>Borrar búsqueda</a>
                 </div>
@@ -63,6 +64,7 @@
                             <th>Foto</th>
                             <th>@sortablelink('name')</th>
                             <th>@sortablelink('phone')</th>
+                            <th>Empresa</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
@@ -75,6 +77,7 @@
                             </td>
                             <td>{{ $customer->name }}</td>
                             <td> <a href="https://api.whatsapp.com/send?phone=591{{ $customer->phone }}" target="_blank">{{ $customer->phone }}</a></td>
+                            <td> {{ $customer->empresa }} </td>
                             <td>
                                 <div class="d-flex align-items-center list-action">
                                     <a class="badge badge-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"
