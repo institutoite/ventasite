@@ -1,98 +1,28 @@
-use App\Models\Category;
 use App\Models\Product;
-use App\Models\Marca;
-use App\Models\Sucursal;
-use App\Models\User;
-use App\Models\ProductoSucursal;
-use App\Http\Controllers\ProductoController;
-
-
- $producto = Category::find(1);
 use App\Models\Category;
+
+ $productos = Product::find(1)->category;
+$category= Category::find(1);
+        $products = $category->productos->paginate(5);
+        return response()->json($products);
 use App\Models\Product;
-use App\Models\Marca;
-use App\Models\Sucursal;
-use App\Models\User;
-use App\Models\ProductoSucursal;
-use App\Http\Controllers\ProductoController;
-
-
- $producto = Category::find(1);
 use App\Models\Category;
+
+ $productos = Product::find(1)->category;
+$category= Category::find(1);
+        $products = $category->productos;
+        return response()->json($products);
 use App\Models\Product;
-use App\Models\Marca;
-use App\Models\Sucursal;
-use App\Models\User;
-use App\Models\ProductoSucursal;
-use App\Http\Controllers\ProductoController;
-
-
- $producto = Category::find(1);
-
-
-$id_categoria = Category::where("name","Amoladora");
 use App\Models\Category;
+
+ $productos = Product::find(1)->category;
+$category= Category::find(1);
+        $products = $category->productos->get();
+        return response()->json($products);
 use App\Models\Product;
-use App\Models\Marca;
-use App\Models\Sucursal;
-use App\Models\User;
-use App\Models\ProductoSucursal;
-use App\Http\Controllers\ProductoController;
-
-
- $producto = Category::find(1);
-
-
-$id_categoria = Category::where("name","Amoladora")->get();
 use App\Models\Category;
-use App\Models\Product;
-use App\Models\Marca;
-use App\Models\Sucursal;
-use App\Models\User;
-use App\Models\ProductoSucursal;
-use App\Http\Controllers\ProductoController;
 
-
- $producto = Category::find(1);
-
-
-$id_categoria = Category::where("name","Amoladora")->get()->id;
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\Marca;
-use App\Models\Sucursal;
-use App\Models\User;
-use App\Models\ProductoSucursal;
-use App\Http\Controllers\ProductoController;
-
-
- $producto = Category::find(1);
-
-
-$id_categoria = Category::where("name","Amoladora")->get()->id;
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\Marca;
-use App\Models\Sucursal;
-use App\Models\User;
-use App\Models\ProductoSucursal;
-use App\Http\Controllers\ProductoController;
-
-
- $producto = Category::find(1);
-
-
-$id_categoria = Category::where("name","Amoladora")->get()->first();
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\Marca;
-use App\Models\Sucursal;
-use App\Models\User;
-use App\Models\ProductoSucursal;
-use App\Http\Controllers\ProductoController;
-
-
- $producto = Category::find(1);
-
-
-$id_categoria = Category::where("name","Amoladora")->get()->first()->id;
+ $productos = Product::find(1)->category;
+$category= Category::find(1);
+        $products = $category->productos;
+        return response()->json($products);

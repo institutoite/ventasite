@@ -4,171 +4,116 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Detalle del Producto</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
-    /* Estilos para la vista de detalle del producto en PC */
- 
-    .product-detail-container {
-      display: flex;
-      flex-direction: row;
-    }
-
-    .product-detail-container .left-section {
-      flex: 0 0 85%; /* 85% del ancho total */
-      position: relative;
-      overflow: hidden;
-      aspect-ratio: 1; /* Hace que la sección izquierda sea cuadrada */
-    }
-
-    .product-detail-container .left-section .image-container {
-      width: 80%;
-      height: 80%; /* Hace que la imagen de fondo desenfocada ocupe todo el contenedor */
-      position: relative;
-      align-content: center;
-    }
-
-    .product-detail-container .left-section img {
-      width: 100%; /* La imagen principal ocupa todo el contenedor */
-      height: auto;
-      position: absolute;
-      top: 0;
-      left: 0;
-      object-fit: contain; /* Para que la imagen no se estire */
-    }
-
-    .product-detail-container .left-section .blur-background {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-size: cover;
-      filter: blur(15px);
-      z-index: -1;
-    }
-
-    .product-detail-container .left-section .image-buttons {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      padding: 0 20px;
-    }
-
-    .product-detail-container .right-section {
-      flex: 0 0 15%; /* 15% del ancho total */
+    /* Ajustes de estilo adicionales si es necesario */
+    .product-info {
       padding: 20px;
     }
 
-    .product-detail-container .right-section h2 {
+    .product-info h2 {
       margin-top: 0;
     }
 
-    .product-detail-container .right-section .price {
+    .product-info .price {
       font-size: 18px;
       font-weight: bold;
       margin-bottom: 10px;
     }
 
-    .product-detail-container .right-section .share-icon {
+    .product-info .share-icon {
       color: #007bff;
       font-size: 24px;
       margin-right: 10px;
     }
+    .btn-buy{
+      width: 100%;
+    }
 
-    .product-detail-container .right-section .product-description {
+    .product-info .product-description {
       font-size: 14px;
       color: #666;
     }
-
-    /*css */
-    #image-container {
-      width: 400px; /* Ancho del contenedor */
-      height: 300px; /* Altura del contenedor */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden; /* Para recortar la imagen si es más grande que el contenedor */
+    .product-link {
+      color: inherit; /* Heredar el color del texto */
+      text-decoration: none; /* Quitar la subrayado del enlace */
     }
-
-    #image-container img {
-      max-width: 100%; /* Ancho máximo de la imagen */
-      max-height: 100%; /* Altura máxima de la imagen */
-      height: auto; /* Para mantener la proporción de la imagen */
-      width: auto; /* Para mantener la proporción de la imagen */
+    .product-card .description {
+      font-size: 12px;
+      font-family: Arial, Helvetica, sans-serif;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      color: #718096;
+      text-overflow: ellipsis;
     }
-
-    .horizontal {
-      height: 100%; /* El alto es proporcional */
-    }
-
-    .vertical {
-      width: 100%; /* El ancho es proporcional */
-    }
-
 
   </style>
 </head>
 <body>
   <div class="container mt-4">
-    <div class="product-detail-container">
-      <div class="left-section">
-        <div class="image-container">
-          <img id="product-image" src="{{ asset('storage/products/'.$product->product_image) }}" alt="Producto">
-        </div>
-        <div class="blur-background" style="background-image: url('{{ asset('storage/products/'.$product->product_image) }}');"></div>
-        <div class="image-buttons">
-          <button class="btn btn-primary" onclick="previousImage()">Anterior</button>
-          <button class="btn btn-primary" onclick="nextImage()">Siguiente</button>
+    <div class="row">
+      <div class="col-md-8">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="{{ asset('storage/products/'.$product->product_image) }}" alt="First slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="{{ asset('storage/products/'.$product->imagen2) }}" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="{{ asset('storage/products/'.$product->imagen3) }}" alt="Third slide">
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </a>
         </div>
       </div>
-      <div class="right-section">
-        <h2>Nombre del Producto</h2>
-        <p class="price">Precio: $100</p>
-        <button class="btn btn-link share-icon"><i class="fa-solid fa-share-nodes"></i></button>
-        <p class="product-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula magna eget ex fermentum, vel tempus est varius.</p>
+      <div class="col-md-4">
+        <div class="product-info">
+          <h2>{{ $product->product_name }} </h2>
+          <p class="price">Bs. {{ $product->precio1 }}
+            <a href="https://wa.me/59167855168?text={{str_replace(' ', '%20', $product->descripcion." ".$product->precio1." ".route('show.product.public',$product->id))}}" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-whatsapp fa-beat fa-2x" style="color: #00fa60;"></i>
+            </a>
+          </p>
+        
+          <button class="btn btn-link share-icon"><i class="fa-solid fa-share-nodes"></i></button>
+          <p class="product-description">{{ $product->descripcion }}</p>
+          <button class="btn btn-success btn-buy">Enviar</button>
+        </div>
+        <h6>producto relacionado</h6>
+        <div class="col-12 mb-0"> 
+          <a href="{{ route("show.product.public",$productosimilar->id) }}" class="product-link"> <!-- Enlace para toda la tarjeta -->
+            <div class="product-card">
+              <img class="d-block w-100" src="{{ asset('storage/products/'.$productosimilar->product_image) }}" alt="Producto 1">
+              <div class="card-body">
+                <p class="price mb-0">Bs. {{ $productosimilar->precio1 }} <span>{{ $productosimilar->product_name }}</span></p> 
+                <h5 class="description">{{ $productosimilar->descripcion }}</h5>
+                <button class="btn btn-buy" onclick="event.stopPropagation();"><i class="fa-solid fa-share-nodes fa-bounce fa-2x"></i></button> <!-- Detener la propagación del evento de clic para que no afecte al enlace -->
+              </div>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   </div>
 
-  <script>
-    var images = [
-      "{{ asset('storage/products/'.$product->product_image) }}", // Imagen principal
-      "{{ asset('storage/products/'.$product->imagen2) }}", // Segunda imagen del producto
-      "{{ asset('storage/products/'.$product->imagen3) }}" // Tercera imagen del producto
-    ];
-    var currentImageIndex = 0;
-    var productImage = document.getElementById('product-image');
-
-    function nextImage() {
-      currentImageIndex = (currentImageIndex + 1) % images.length;
-      productImage.src = images[currentImageIndex];
-      document.querySelector('.blur-background').style.backgroundImage = "url('" + images[currentImageIndex] + "')";
-    }
-
-    function previousImage() {
-      currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-      productImage.src = images[currentImageIndex];
-      document.querySelector('.blur-background').style.backgroundImage = "url('" + images[currentImageIndex] + "')";
-    }
-
-    window.addEventListener('load', function() {
-      var imagen = document.getElementById('product-image');
-      var contenedor = document.getElementById('image-container');
-
-      imagen.onload = function() {
-        var width = imagen.width;
-        var height = imagen.height;
-
-        if (width >= height) {
-          contenedor.classList.add('horizontal');
-        } else {
-          contenedor.classList.add('vertical');
-        }
-      }
-    });
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

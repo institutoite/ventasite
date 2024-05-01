@@ -93,15 +93,15 @@
                 <input type="text" id="busqueda" class="form-control mb-3" placeholder="Buscar...">
                 <select id="categorias" class="form-select mb-3">
                     <option value="">Todas las categorías</option>
-                    <option value="categoria1">Categoría 1</option>
-                    <option value="categoria2">Categoría 2</option>
-                    <option value="categoria3">Categoría 3</option>
+                    @foreach ($categorias as $categoria)
+                      <option value="{{ $categoria->id }}">{{ $categoria->name }}</option>
+                    @endforeach
                 </select>
                 <select id="marcas" class="form-select mb-3">
-                    <option value="">Todas las Marcas</option>
-                    <option value="marca1">Marca 1</option>
-                    <option value="marca2">Marca 2</option>
-                    <option value="marca3">Marca 3</option>
+                    <option value="">Todas las marcas</option>
+                    @foreach ($marcas as $marca)
+                      <option value="{{ $marca->id }}">{{ $marca->marca }}</option>
+                    @endforeach
                 </select>
             </div>
       <div class="col-md-10">
@@ -124,8 +124,73 @@
     </div>
   </div>
 
-  
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function() {
+        // Función para cargar productos según la categoría seleccionada
+        function cargarProductos(categoria) {
+          $.ajax({
+            url: "{{ route('productos.de.una.categoria') }}", // Reemplaza 'ruta_del_servidor_para_obtener_productos' por la ruta correcta en tu servidor
+            method: 'get', // Método HTTP utilizado para la solicitud
+            data: { categoria: categoria }, // Datos enviados al servidor (en este caso, la categoría seleccionada)
+            success: function(response) {
+              // Manejar la respuesta del servidor y actualizar la lista de productos
+              $('#lista-productos').html(response);
+              console.log(response);
+            },
+            error: function(xhr, status, error) {
+              // Manejar errores de la solicitud AJAX
+              console.error('Error al cargar productos:', error);
+            }
+          });
+        }
+
+        // Escuchar cambios en el select de categorías
+        $('#categorias').change(function() {
+          var categoriaSeleccionada = $(this).val();
+    
+          cargarProductos(categoriaSeleccionada);
+        });
+
+        // Cargar todos los productos al cargar la página (sin filtro de categoría)
+        cargarProductos('');
+
+        
+
+        // $(window).on('scroll', function() {
+        //     if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+        //         loadMoreProducts();
+        //     }
+        // });
+
+        // function loadMoreProducts() {
+        //     if (nextPageUrl) {
+        //         $('#load-more-btn').text('Cargando...');
+        //         $.ajax({
+        //             url: nextPageUrl,
+        //             method: 'GET',
+        //             success: function(response) {
+        //                 $('#products-container').append(response);
+        //                 nextPageUrl = $(response).filter('a[rel="next"]').attr('href');
+        //                 if (!nextPageUrl) {
+        //                     $('#load-more-btn').remove();
+        //                 }
+        //             },
+        //             error: function(xhr, status, error) {
+        //                 console.error('Error al cargar más productos:', error);
+        //             }
+        //         });
+        //     }
+        // }
+
+        // $('#load-more-btn').on('click', function() {
+        //     loadMoreProducts();
+        // });
+      });
+
+
+  </script>
 </body>
 </html>

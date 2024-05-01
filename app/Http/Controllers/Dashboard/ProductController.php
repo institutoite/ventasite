@@ -151,7 +151,11 @@ class ProductController extends Controller
     }
 
     public function showProduct(Product $product){
-        return view("products.showproduct",compact("product"));
+        $categoriaProductoActual = $product->category_id;
+        $productosimilar = Product::where('category_id', $categoriaProductoActual)
+            ->where('id', '!=', $product->id)
+            ->first();
+        return view("products.showproduct",compact("product","productosimilar"));
     }
 
     /**
@@ -168,6 +172,12 @@ class ProductController extends Controller
             'product' => $product,
             'barcode' => $barcode,
         ]);
+    }
+    public function productosDeUnaCategoria(Request $request){
+        $category= Category::find($request->categoria);
+        $products = $category->productos;
+        return response()->json($products);
+        
     }
 
     /**

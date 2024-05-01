@@ -22,7 +22,7 @@ class Marca extends Model
         'id',
     ];
 
-    public function producto()
+    public function productos()
     {
         return $this->hasOne(Marca::class);
     }

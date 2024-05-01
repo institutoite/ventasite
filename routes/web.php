@@ -20,6 +20,7 @@ use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\AlmacenController;
 use App\Http\Controllers\SucursalController;
 use App\Models\Category;
+use App\Models\Marca;
 use App\Models\Product;
 
 /*
@@ -36,7 +37,9 @@ use App\Models\Product;
 Route::get('/', function () {
     $categories = Category::all();
     $products=Product::all();
-    return view('welcome',compact("categories","products"));
+    $categorias=Category::all();
+    $marcas =Marca::all();
+    return view('welcome',compact("categories","products","categorias","marcas"));
 });
 
 
@@ -107,6 +110,7 @@ Route::middleware(['permission:product.menu'])->group(function () {
     Route::get('/sucursales/get',[SucursalController::class,"getSucuardales"])->name("get.sucursales");
 });
 Route::get('show/producto/{product}',[ProductController::class,"showProduct"])->name("show.product.public");
+Route::get('products/of/category',[ProductController::class,"productosDeUnaCategoria"])->name("productos.de.una.categoria");
 
 
 // ====== CATEGORY PRODUCTS ======
