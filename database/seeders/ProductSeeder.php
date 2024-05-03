@@ -37,7 +37,7 @@ class ProductSeeder extends Seeder
             'product_name' => 'Taladro2',
             'category_id' => 1,
             'supplier_id' => 1,
-            'marca_id'=>1,
+            'marca_id'=>2,
             'descripcion'=>"Este taladro es de la reconocida marca y modelo, ofreciendo una excelente calidad y rendimiento. Con su potente motor, es capaz de perforar diversos materiales con facilidad y precisión.",
             'almacen_id'=>1,
             'product_code' => 'CR444',
@@ -55,9 +55,9 @@ class ProductSeeder extends Seeder
         ]);
         Product::create([
             'product_name' => 'Taladro3',
-            'category_id' => 1,
+            'category_id' => 2,
             'supplier_id' => 1,
-            'marca_id'=>1,
+            'marca_id'=>2,
             'descripcion'=>"Este taladro es de la reconocida marca y modelo, ofreciendo una excelente calidad y rendimiento. Con su potente motor, es capaz de perforar diversos materiales con facilidad y precisión.",
             'almacen_id'=>1,
             'product_code' => 'CR222',
@@ -76,7 +76,7 @@ class ProductSeeder extends Seeder
         
         Product::create([
             'product_name' => 'Taladro 4',
-            'category_id' => 1,
+            'category_id' => 2,
             'supplier_id' => 1,
             'marca_id'=>1,
             'descripcion'=>"Este taladro es de la reconocida marca y modelo, ofreciendo una excelente calidad y rendimiento. Con su potente motor, es capaz de perforar diversos materiales con facilidad y precisión.",

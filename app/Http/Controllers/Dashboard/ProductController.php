@@ -29,25 +29,6 @@ use function PHPUnit\Framework\isEmpty;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    // public function index()
-    // {
-    //     $row = (int) request('row', 10);
-
-    //     if ($row < 1 || $row > 100) {
-    //         abort(400, 'The per-page parameter must be an integer between 1 and 100.');
-    //     }
-
-    //     return view('products.index', [
-    //         'products' => Product::with(['category', 'supplier'])
-    //             ->filter(request(['search']))
-    //             ->sortable()
-    //             ->paginate($row)
-    //             ->appends(request()->query()),
-    //     ]);
-    // }
     public function index()
     {
         $productos = Product::all();
@@ -173,11 +154,34 @@ class ProductController extends Controller
             'barcode' => $barcode,
         ]);
     }
+    public function productosDeUnaQuery(Request $request){
+        if($request->query!=""){
+            
+            return response()->json($products);
+        }else{
+            $products=Product::all();
+            return response()->json($products);
+        }
+    }
     public function productosDeUnaCategoria(Request $request){
-        $category= Category::find($request->categoria);
-        $products = $category->productos;
-        return response()->json($products);
-        
+        if($request->categoria!=""){
+            $category= Category::find($request->categoria);
+            $products = $category->productos;
+            return response()->json($products);
+        }else{
+            $products=Product::all();
+            return response()->json($products);
+        }
+    }
+    public function productosDeUnaMarca(Request $request){
+        if($request->marca!=""){
+            $marca= Marca::find($request->marca);
+            $products = $marca->productos;
+            return response()->json($products);
+        }else{
+            $products=Product::all();
+            return response()->json($products);
+        }
     }
 
     /**
@@ -263,15 +267,6 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        /**
-         * Delete photo if exists.
-         */
-        // if($product->product_image){
-        //     Storage::delete('public/products/' . $product->product_image);
-        // }
-
-        // Product::destroy($product->id);
-
         $product->estado = 0;
         $product->save();
         return Redirect::route('products.index')->with('success', '¡El producto ha sido eliminado!');
@@ -459,13 +454,6 @@ class ProductController extends Controller
     
     public function guardarProductosAunaSucursal(Request $request)
     {
-        //return response()->json($request->all());
-        // $request->validate([
-        //     'product_id' =>'delte|exists:products,id',
-        //     'sucursal_id' =>'required|exists:sucursals,id',
-        //     'stock' =>'required|integer|min:0',
-        // ]);
-        // $producto_id, $sucursal_id, $cantidad
         $producto_id=$request->product_id;
         $sucursal_id=$request->sucursal_id; 
         $cantidad=$request->stock;

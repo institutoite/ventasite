@@ -105,7 +105,7 @@
                 </select>
             </div>
       <div class="col-md-10">
-            <div class="row no-gutters">
+            <div id="productos" class="row no-gutters">
                 @foreach ($products as $product)
                 <div class="col-6 col-xs-6 col-sm-6 col-md-4 col-lg-3 mb-0"> 
                   <a href="{{ route("show.product.public",$product->id) }}" class="product-link"> <!-- Enlace para toda la tarjeta -->
@@ -136,9 +136,26 @@
             method: 'get', // Método HTTP utilizado para la solicitud
             data: { categoria: categoria }, // Datos enviados al servidor (en este caso, la categoría seleccionada)
             success: function(response) {
-              // Manejar la respuesta del servidor y actualizar la lista de productos
-              $('#lista-productos').html(response);
-              console.log(response);
+                $("#productos").empty(); // Limpiar el contenedor de productos antes de agregar los nuevos
+                console.log(response);
+                response.forEach(product => {
+                    // Crear la estructura HTML para cada producto y agregarla al contenedor
+                  var html = `
+                      <div class="col-6 col-xs-6 col-sm-6 col-md-4 col-lg-3 mb-0"> 
+                          <a href="{{ url("show.product.public") }}/${product.id}" class="product-link"> <!-- Enlace para toda la tarjeta -->
+                              <div class="product-card">
+                                  <img src="{{ asset('storage/products/') }}/${product.product_image}" alt="Producto ${product.id}">
+                                  <div class="card-body">
+                                      <p class="price mb-0">Bs. ${product.precio1} <span>${product.product_name}</span></p> 
+                                      <h5 class="description">${product.descripcion}</h5>
+                                      <button class="btn btn-buy" onclick="event.stopPropagation();"><i class="fa-solid fa-share-nodes fa-bounce fa-2x"></i></button> <!-- Detener la propagación del evento de clic para que no afecte al enlace -->
+                                  </div>
+                              </div>
+                          </a>
+                      </div>
+                  `;
+                  $("#productos").append(html); // Agregar el HTML del producto al contenedor
+                });
             },
             error: function(xhr, status, error) {
               // Manejar errores de la solicitud AJAX
@@ -153,41 +170,49 @@
     
           cargarProductos(categoriaSeleccionada);
         });
+        function cargarProductosMarca(marca) {
+          $.ajax({
+            url: "{{ route('productos.de.una.marca') }}", // Reemplaza 'ruta_del_servidor_para_obtener_productos' por la ruta correcta en tu servidor
+            method: 'get', // Método HTTP utilizado para la solicitud
+            data: { marca: marca }, // Datos enviados al servidor (en este caso, la categoría seleccionada)
+            success: function(response) {
+                $("#productos").empty(); // Limpiar el contenedor de productos antes de agregar los nuevos
+                console.log(response);
+                response.forEach(product => {
+                    // Crear la estructura HTML para cada producto y agregarla al contenedor
+                  var html = `
+                      <div class="col-6 col-xs-6 col-sm-6 col-md-4 col-lg-3 mb-0"> 
+                          <a href="{{ url("show.product.public") }}/${product.id}" class="product-link"> <!-- Enlace para toda la tarjeta -->
+                              <div class="product-card">
+                                  <img src="{{ asset('storage/products/') }}/${product.product_image}" alt="Producto ${product.id}">
+                                  <div class="card-body">
+                                      <p class="price mb-0">Bs. ${product.precio1} <span>${product.product_name}</span></p> 
+                                      <h5 class="description">${product.descripcion}</h5>
+                                      <button class="btn btn-buy" onclick="event.stopPropagation();"><i class="fa-solid fa-share-nodes fa-bounce fa-2x"></i></button> <!-- Detener la propagación del evento de clic para que no afecte al enlace -->
+                                  </div>
+                              </div>
+                          </a>
+                      </div>
+                  `;
+                  $("#productos").append(html); // Agregar el HTML del producto al contenedor
+                });
+            },
+            error: function(xhr, status, error) {
+              // Manejar errores de la solicitud AJAX
+              console.error('Error al cargar productos:', error);
+            }
+          });
+        }
+
+        // Escuchar cambios en el select de categorías
+        $('#marcas').change(function() {
+          var marcaSeleccionada = $(this).val();
+    
+          cargarProductosMarca(marcaSeleccionada);
+        });
 
         // Cargar todos los productos al cargar la página (sin filtro de categoría)
         cargarProductos('');
-
-        
-
-        // $(window).on('scroll', function() {
-        //     if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-        //         loadMoreProducts();
-        //     }
-        // });
-
-        // function loadMoreProducts() {
-        //     if (nextPageUrl) {
-        //         $('#load-more-btn').text('Cargando...');
-        //         $.ajax({
-        //             url: nextPageUrl,
-        //             method: 'GET',
-        //             success: function(response) {
-        //                 $('#products-container').append(response);
-        //                 nextPageUrl = $(response).filter('a[rel="next"]').attr('href');
-        //                 if (!nextPageUrl) {
-        //                     $('#load-more-btn').remove();
-        //                 }
-        //             },
-        //             error: function(xhr, status, error) {
-        //                 console.error('Error al cargar más productos:', error);
-        //             }
-        //         });
-        //     }
-        // }
-
-        // $('#load-more-btn').on('click', function() {
-        //     loadMoreProducts();
-        // });
       });
 
 

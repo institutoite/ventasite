@@ -1,28 +1,777 @@
-use App\Models\Product;
-use App\Models\Category;
+use App\Models\Hermano;
+use App\Models\Pisa;
+use Carbon\Carbon;
 
- $productos = Product::find(1)->category;
-$category= Category::find(1);
-        $products = $category->productos->paginate(5);
-        return response()->json($products);
-use App\Models\Product;
-use App\Models\Category;
+$pista=Pista::find(1);
+$pista->hermano;
 
- $productos = Product::find(1)->category;
-$category= Category::find(1);
-        $products = $category->productos;
-        return response()->json($products);
+$marca= Marca::find(2);
+            $products = $marca->productos;
+            return response()->json($products);
 use App\Models\Product;
-use App\Models\Category;
+use App\Models\Marca;
+use Carbon\Carbon;
 
- $productos = Product::find(1)->category;
-$category= Category::find(1);
-        $products = $category->productos->get();
-        return response()->json($products);
+$pista=Pista::find(1);
+$pista->hermano;
+
+$marca= Marca::find(2);
+            $products = $marca->productos;
+            return response()->json($products);
 use App\Models\Product;
-use App\Models\Category;
+use App\Models\Marca;
+use Carbon\Carbon;
 
- $productos = Product::find(1)->category;
-$category= Category::find(1);
-        $products = $category->productos;
-        return response()->json($products);
+$pista=Pista::find(1);
+$pista->hermano;
+
+$marca= Marca::find(2);
+            $products = $marca->productos;
+            return response()->json($products);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+
+$marca= Marca::find(2);
+            $products = $marca->productos;
+            return response()->json($products);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+
+$marca= Marca::find(2);
+            $products = $marca->productos;
+            return response()->json($products);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+
+$marca= Marca::find(1);
+            $products = $marca->productos;
+            return response()->json($products);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+
+$marca= Marca::find(1);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+
+$marca= Marca::find(1);
+            $products = $marca->productos;
+            return response()->json($products);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+
+$marca= Marca::find(1);
+            $products = $marca->productos;
+            return response()->json($products);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+
+$marca= Marca::find(1);
+            $products = $marca->productos;
+            return response()->json($products);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+    $query = "tot"
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+                    ->orWhere('descripcion', 'LIKE', "%$query%") 
+                    ->orWhereHas('categoria', function($query) use ($query) {
+                        $query->where('nombre', 'LIKE', "%$query%"); 
+                    })
+                    ->orWhereHas('marca', function($query) use ($query) {
+                        $query->where('nombre', 'LIKE', "%$query%"); 
+                    })
+                    ->get();
+
+    return response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+    $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+                    ->orWhere('descripcion', 'LIKE', "%$query%") 
+                    ->orWhereHas('categoria', function($query) use ($query) {
+                        $query->where('nombre', 'LIKE', "%$query%"); 
+                    })
+                    ->orWhereHas('marca', function($query) use ($query) {
+                        $query->where('nombre', 'LIKE', "%$query%"); 
+                    })
+                    ->get();
+
+    return response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+    $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+                    ->orWhere('descripcion', 'LIKE', "%$query%") 
+                    ->orWhereHas('categoria', function($query) use ($query) {
+                        $query->where('nombre', 'LIKE', "%$query%"); 
+                    })
+                    ->orWhereHas('marca', function($query) use ($query) {
+                        $query->where('nombre', 'LIKE', "%$query%"); 
+                    })
+                    ->get();
+
+    return response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+    $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+                    ->orWhere('descripcion', 'LIKE', "%$query%") 
+                    ->orWhereHas('categoria', function($query) use ($query) {
+                        $query->where('nombre', 'LIKE', "%$query%"); 
+                    })
+                    ->orWhereHas('marca', function($query) use ($query) {
+                        $query->where('nombre', 'LIKE', "%$query%"); 
+                    })
+                    ->get();
+
+    return response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+    $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+                    ->orWhere('descripcion', 'LIKE', "%$query%") 
+                    ->orWhereHas('categoria', function($query) use ($query) {
+                        $query->where('nombre', 'LIKE', "%$query%"); 
+                    })
+                    ->orWhereHas('marca', function($query) use ($query) {
+                        $query->where('nombre', 'LIKE', "%$query%"); 
+                    })
+                    ->get();
+
+    return response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+    $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+                    ->orWhere('descripcion', 'LIKE', "%$query%") 
+                    ->orWhereHas('categoria', function($query) use ($query) {
+                        $query->where('nombre', 'LIKE', "%$query%"); 
+                    })
+                    ->orWhereHas('marca', function($query) use ($query) {
+                        $query->where('nombre', 'LIKE', "%$query%"); 
+                    })
+                    ->get();
+
+    return response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+    $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+                    ->orWhere('descripcion', 'LIKE', "%$query%") 
+                    ->orWhereHas('categoria', function($query) use ($query) {
+                        $query->where('nombre', 'LIKE', "%$query%"); 
+                    })
+                    ->orWhereHas('marca', function($query) use ($query) {
+                        $query->where('nombre', 'LIKE', "%$query%"); 
+                    })
+                    ->get();
+
+    return response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+    $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+                    ->orWhere('descripcion', 'LIKE', "%$query%") 
+                    ->orWhereHas('categoria', function($query) use ($query) {
+                        $query->where('nombre', 'LIKE', "%$query%"); 
+                    })
+                    ->orWhereHas('marca', function($query) use ($query) {
+                        $query->where('nombre', 'LIKE', "%$query%"); 
+                    })
+                    ->get();
+
+    return response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+    $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('categoria', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->get();
+
+    return response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+    $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('categoria', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->get();
+
+    return response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+    $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('categoria', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->get();
+
+    return response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+    $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('categoria', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->get();
+
+    return response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+    $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('categoria', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->get();
+
+    return response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+    $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('categoria', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->get();
+
+    return response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+    $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('categoria', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->get();
+
+    return response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+    $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('categoria', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->get();
+
+    return response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+    $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('categoria', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->get();
+
+    return response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+    $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('categoria', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->get();
+
+    return response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('categoria', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->get();
+
+    return response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('categoria', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->get();
+
+    return response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('categoria', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->get();
+
+    return response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('categoria', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->get();
+
+   $D= response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('categoria', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->get();
+
+   $D= response()->json($productos);
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('categoria', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->get();
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%") 
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('nombre', 'LIKE', "%$query%")->get();
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('product_name', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('categoria', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->get();
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('product_name', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('categoria', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->get();
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('product_name', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('categoria', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->get();
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('product_name', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('categoria', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->get();
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('product_name', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('name', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->get();
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('product_name', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('name', function($query) use ($query) {
+                 $query->where('name', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('nombre', 'LIKE', "%$query%"); 
+                })
+              ->get();
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('product_name', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('name', function($query) use ($query) {
+                 $query->where('name', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('marca', 'LIKE', "%$query%"); 
+                })
+              ->get();
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('product_name', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('name', function($query) use ($query) {
+                 $query->where('name', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('marca', 'LIKE', "%$query%"); 
+                })
+              ->get();
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('product_name', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('name', function($query) use ($query) {
+                 $query->where('name', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('marca', 'LIKE', "%$query%"); 
+                })
+              ->get();
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('product_name', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('name', function($query) use ($query) {
+                 $query->where('name', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('marca', 'LIKE', "%$query%"); 
+                })
+              ->get();
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('product_name', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('name', function($query) use ($query) {
+                 $query->where('name', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('marca', 'LIKE', "%$query%"); 
+                })
+              ->get();
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('product_name', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('name', function($query) use ($query) {
+                 $query->where('name', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('marca', 'LIKE', "%$query%"); 
+                })
+              ->get();
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('product_name', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('name', function($query) use ($query) {
+                 $query->where('name', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('marca', 'LIKE', "%$query%"); 
+                })
+              ->get();
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('product_name', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('name', function($query) use ($query) {
+                 $query->where('name', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('marca', 'LIKE', "%$query%"); 
+                })
+              ->get();
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('product_name', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('name', function($query) use ($query) {
+                 $query->where('name', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('marca', 'LIKE', "%$query%"); 
+                })
+              ->get();
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "tot";
+ $productos = Product::where('product_name', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('name', function($query) use ($query) {
+                 $query->where('name', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('marca', 'LIKE', "%$query%"); 
+                })
+              ->get();
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "total";
+ $productos = Product::where('product_name', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('name', function($query) use ($query) {
+                 $query->where('name', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('marca', 'LIKE', "%$query%"); 
+                })
+              ->get();
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "total";
+ $productos = Product::where('product_name', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('name', function($query) use ($query) {
+                 $query->where('name', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('marca', 'LIKE', "%$query%"); 
+                })
+              ->get();
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "total";
+ $productos = Product::where('product_name', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('name', function($query) use ($query) {
+                 $query->where('name', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('marca', 'LIKE', "%$query%"); 
+                })
+              ->get();
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "total";
+ $productos = Product::where('product_name', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('name', function($query) use ($query) {
+                 $query->where('name', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marca', function($query) use ($query) {
+                 $query->where('marca', 'LIKE', "%$query%"); 
+                })
+              ->get();
+use App\Models\Product;
+use App\Models\Marca;
+use Carbon\Carbon;
+
+ $query = "total";
+ $productos = Product::where('product_name', 'LIKE', "%$query%") 
+              ->orWhere('descripcion', 'LIKE', "%$query%") 
+              ->orWhereHas('category', function($query) use ($query) {
+                 $query->where('name', 'LIKE', "%$query%"); 
+                })
+              ->orWhereHas('marcas', function($query) use ($query) {
+                 $query->where('marca', 'LIKE', "%$query%"); 
+                })
+              ->get();
