@@ -87,14 +87,14 @@
         <div class="product-info">
           <h2>{{ $product->product_name }} </h2>
           <p class="price">Bs. {{ $product->precio1 }}
-            <a href="https://wa.me/59167855168?text={{str_replace(' ', '%20', $product->descripcion." ".$product->precio1." ".route('show.product.public',$product->id))}}" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/59167855168?text={{str_replace(' ', '%20', $product->descripcion." Bs. ".$product->precio1." ".route('show.product.public',$product->id))}}" target="_blank" rel="noopener noreferrer">
               <i class="fa-brands fa-whatsapp fa-beat fa-2x" style="color: #00fa60;"></i>
             </a>
           </p>
         
           <button class="btn btn-link share-icon"><i class="fa-solid fa-share-nodes"></i></button>
           <p class="product-description">{{ $product->descripcion }}</p>
-          <button class="btn btn-success btn-buy">Enviar</button>
+          <a href="https://wa.me/59167855168?text={{str_replace(' ', '%20', $product->descripcion." Bs. ".$product->precio1." ".route('show.product.public',$product->id))}}" class="btn btn-success btn-buy">Enviar</a>
         </div>
         <h6>producto relacionado</h6>
         <div class="col-12 mb-0"> 

@@ -128,92 +128,73 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"></script>
   <script>
+    var page = 1; 
+    function cargarProductos(categoria="", marca="", query="", page) {
+        $.ajax({
+              url: "{{ route('productos.filtrados') }}",
+              method: 'get',
+              data: { 
+                  categoria: categoria,
+                  marca: marca,
+                  query: query,
+                  page: page 
+              },
+              success: function(response) {
+                  console.log(response);
+                  response.forEach(product => {
+                  var html = `
+                      <div class="col-6 col-xs-6 col-sm-6 col-md-4 col-lg-3 mb-0"> 
+                          <a href="{{ url("show/producto") }}/${product.id}" class="product-link">
+                              <div class="product-card">
+                                  <img src="{{ asset('storage/products/') }}/${product.product_image}" alt="Producto ${product.id}">
+                                  <div class="card-body">
+                                      <p class="price mb-0">Bs. ${product.precio1} <span>${product.product_name}</span></p> 
+                                      <h5 class="description">${product.descripcion}</h5>
+                                      <button class="btn btn-buy" onclick="event.stopPropagation();"><i class="fa-solid fa-share-nodes fa-bounce fa-2x"></i></button>
+                                  </div>
+                              </div>
+                          </a>
+                      </div>
+                  `;
+                  $("#productos").append(html);
+                });
+              },
+              error: function(xhr, status, error) {
+                  console.error('Error al cargar productos:', status);
+              }
+          });
+        }
+
     $(document).ready(function() {
-        // Función para cargar productos según la categoría seleccionada
-        function cargarProductos(categoria) {
-          $.ajax({
-            url: "{{ route('productos.de.una.categoria') }}", // Reemplaza 'ruta_del_servidor_para_obtener_productos' por la ruta correcta en tu servidor
-            method: 'get', // Método HTTP utilizado para la solicitud
-            data: { categoria: categoria }, // Datos enviados al servidor (en este caso, la categoría seleccionada)
-            success: function(response) {
-                $("#productos").empty(); // Limpiar el contenedor de productos antes de agregar los nuevos
-                console.log(response);
-                response.forEach(product => {
-                    // Crear la estructura HTML para cada producto y agregarla al contenedor
-                  var html = `
-                      <div class="col-6 col-xs-6 col-sm-6 col-md-4 col-lg-3 mb-0"> 
-                          <a href="{{ url("show.product.public") }}/${product.id}" class="product-link"> <!-- Enlace para toda la tarjeta -->
-                              <div class="product-card">
-                                  <img src="{{ asset('storage/products/') }}/${product.product_image}" alt="Producto ${product.id}">
-                                  <div class="card-body">
-                                      <p class="price mb-0">Bs. ${product.precio1} <span>${product.product_name}</span></p> 
-                                      <h5 class="description">${product.descripcion}</h5>
-                                      <button class="btn btn-buy" onclick="event.stopPropagation();"><i class="fa-solid fa-share-nodes fa-bounce fa-2x"></i></button> <!-- Detener la propagación del evento de clic para que no afecte al enlace -->
-                                  </div>
-                              </div>
-                          </a>
-                      </div>
-                  `;
-                  $("#productos").append(html); // Agregar el HTML del producto al contenedor
-                });
-            },
-            error: function(xhr, status, error) {
-              // Manejar errores de la solicitud AJAX
-              console.error('Error al cargar productos:', error);
-            }
-          });
+        let TypeSearch="";
+        $('#categorias, #marcas').change(function() {
+        var categoriaSeleccionada = $('#categorias').val();
+        var marcaSeleccionada = $('#marcas').val();
+        var query = $('#busqueda').val();
+        page = 1;
+        $("#productos").empty();
+        cargarProductos(categoriaSeleccionada, marcaSeleccionada, query, page);
+        TypeSearch = "categorias";
+    });
+
+    $(window).scroll(function() {
+        if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+            page++;
+            var categoriaSeleccionada = $('#categorias').val();
+            var marcaSeleccionada = $('#marcas').val();
+            var query = $('#busqueda').val();
+            cargarProductos(categoriaSeleccionada, marcaSeleccionada, query, page);
         }
+    });
 
-        // Escuchar cambios en el select de categorías
-        $('#categorias').change(function() {
-          var categoriaSeleccionada = $(this).val();
-    
-          cargarProductos(categoriaSeleccionada);
-        });
-        function cargarProductosMarca(marca) {
-          $.ajax({
-            url: "{{ route('productos.de.una.marca') }}", // Reemplaza 'ruta_del_servidor_para_obtener_productos' por la ruta correcta en tu servidor
-            method: 'get', // Método HTTP utilizado para la solicitud
-            data: { marca: marca }, // Datos enviados al servidor (en este caso, la categoría seleccionada)
-            success: function(response) {
-                $("#productos").empty(); // Limpiar el contenedor de productos antes de agregar los nuevos
-                console.log(response);
-                response.forEach(product => {
-                    // Crear la estructura HTML para cada producto y agregarla al contenedor
-                  var html = `
-                      <div class="col-6 col-xs-6 col-sm-6 col-md-4 col-lg-3 mb-0"> 
-                          <a href="{{ url("show.product.public") }}/${product.id}" class="product-link"> <!-- Enlace para toda la tarjeta -->
-                              <div class="product-card">
-                                  <img src="{{ asset('storage/products/') }}/${product.product_image}" alt="Producto ${product.id}">
-                                  <div class="card-body">
-                                      <p class="price mb-0">Bs. ${product.precio1} <span>${product.product_name}</span></p> 
-                                      <h5 class="description">${product.descripcion}</h5>
-                                      <button class="btn btn-buy" onclick="event.stopPropagation();"><i class="fa-solid fa-share-nodes fa-bounce fa-2x"></i></button> <!-- Detener la propagación del evento de clic para que no afecte al enlace -->
-                                  </div>
-                              </div>
-                          </a>
-                      </div>
-                  `;
-                  $("#productos").append(html); // Agregar el HTML del producto al contenedor
-                });
-            },
-            error: function(xhr, status, error) {
-              // Manejar errores de la solicitud AJAX
-              console.error('Error al cargar productos:', error);
-            }
-          });
-        }
-
-        // Escuchar cambios en el select de categorías
-        $('#marcas').change(function() {
-          var marcaSeleccionada = $(this).val();
-    
-          cargarProductosMarca(marcaSeleccionada);
-        });
-
-        // Cargar todos los productos al cargar la página (sin filtro de categoría)
-        cargarProductos('');
-      });
+    $('#busqueda').on('input', function() {
+        var query = $(this).val();
+        page = 1;
+        $("#productos").empty();
+        cargarProductos('', '', query, page);
+        TypeSearch = "busqueda";
+    });
+  });
 
 
   </script>

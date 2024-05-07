@@ -53,7 +53,7 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-         dd($request->all());
+        //  dd($request->all());
         $rules = [
             'photo' => 'image|file|max:1024',
             'name' => 'required|string|max:50',

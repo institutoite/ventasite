@@ -23,7 +23,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('supplier_id')->nullable();
            
-            $table->string('descripcion', 250)->nullable();
+            $table->string('descripcion', 400)->nullable();
             $table->boolean('estado')->default(1);
             
             $table->unsignedBigInteger('almacen_id')->nullable();

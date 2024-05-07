@@ -110,8 +110,9 @@ Route::middleware(['permission:product.menu'])->group(function () {
     Route::get('/sucursales/get',[SucursalController::class,"getSucuardales"])->name("get.sucursales");
 });
 Route::get('show/producto/{product}',[ProductController::class,"showProduct"])->name("show.product.public");
-Route::get('products/of/category',[ProductController::class,"productosDeUnaCategoria"])->name("productos.de.una.categoria");
-Route::get('products/of/marca',[ProductController::class,"productosDeUnaMarca"])->name("productos.de.una.marca");
+// Route::get('products/of/category',[ProductController::class,"productosDeUnaCategoria"])->name("productos.de.una.categoria");
+// Route::get('products/of/marca',[ProductController::class,"productosDeUnaMarca"])->name("productos.de.una.marca");
+Route::get('productos/filtrados', [ProductController::class, 'productosFiltrados'])->name('productos.filtrados');
 
 
 // ====== CATEGORY PRODUCTS ======

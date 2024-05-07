@@ -163,16 +163,63 @@ class ProductController extends Controller
             return response()->json($products);
         }
     }
-    public function productosDeUnaCategoria(Request $request){
-        if($request->categoria!=""){
-            $category= Category::find($request->categoria);
-            $products = $category->productos;
-            return response()->json($products);
-        }else{
-            $products=Product::all();
-            return response()->json($products);
+    // public function productosDeUnaCategoria(Request $request){
+    //     if($request->categoria!=""){
+    //         $category= Category::find($request->categoria);
+    //         $products = $category->productos;
+    //         return response()->json($products);
+    //     }else{
+    //         $products=Product::all();
+    //         return response()->json($products);
+    //     }
+    // }
+    // public function productosDeUnaCategoria(Request $request){
+    //     $perPage = 5; // Número de productos por página
+    //     if($request->categoria != ""){
+    //         $category = Category::find($request->categoria);
+    //         $products = $category->productos()
+    //                              ->skip(($request->page - 1) * $perPage) // Saltar productos según el número de página
+    //                              ->take($perPage) // Tomar una cantidad específica de productos
+    //                             ->get();
+    //         return response()->json($products);
+    //     } else {
+    //         $products = Product::skip(($request->page - 1) * $perPage)
+    //                         ->take($perPage)
+    //                         ->get();
+    //         return response()->json($products);
+    //     }
+    // }
+
+    public function productosFiltrados(Request $request){
+        $perPage = 5;
+        
+        $query = Product::query();
+        // return response()->json($query);
+        $variable="";
+        if($request->categoria != ""){
+            $variable.="entre al if de categoria";
+            $query->whereHas('category', function($q) use ($request) {
+                $q->where('id', $request->categoria);
+            });
         }
+        
+        if(is_null(!($request->marca))){
+            $variable.="entre al if de marca";
+            $query->where('marca', $request->marca);
+        }
+        
+        if(is_null(!($request->query))){
+            $query->where('product_name', 'like', '%'.$request->query.'%')
+            ->orWhere('descripcion', 'like', '%'.$request->query.'%');
+        }
+        
+        $products = $query->skip(($request->page - 1) * $perPage)
+        ->take($perPage)
+        ->get();
+        
+        return response()->json($products);
     }
+
     public function productosDeUnaMarca(Request $request){
         if($request->marca!=""){
             $marca= Marca::find($request->marca);
