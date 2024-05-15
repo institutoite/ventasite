@@ -27,6 +27,15 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-12">
+                                <label for="telefono">Telefono <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('telefono') is-invalid @enderror" id="telefono" name="telefono" value="{{ old('telefono', $category->telefono) }}" required>
+                                @error('telefono')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-12">
                                 <label for="slug">Category Slug <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" value="{{ old('slug', $category->slug) }}" required readonly>
                                 @error('slug')

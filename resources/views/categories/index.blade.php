@@ -62,6 +62,7 @@
                             <th>N°</th>
                             <th>@sortablelink('nombre')</th>
                             <th>@sortablelink('etiqueta')</th>
+                            <th>@sortablelink('telefono')</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
@@ -71,6 +72,7 @@
                             <td>{{ (($categories->currentPage() * 10) - 10) + $loop->iteration  }}</td>
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->slug }}</td>
+                            <td>{{ $category->telefono }}</td>
                             <td>
                                 <div class="d-flex align-items-center list-action">
                                     <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"

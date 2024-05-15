@@ -41,9 +41,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+
+        
         $rules = [
             'name' => 'required|unique:categories,name',
-            'slug' => 'required|unique:categories,slug|alpha_dash',
+            'telefono' => 'required|max:8',
+            'slug' => 'required|unique:categorieds,slug|alpha_dash',
         ];
 
         $validatedData = $request->validate($rules);
@@ -79,6 +82,7 @@ class CategoryController extends Controller
         $rules = [
             'name' => 'required|unique:categories,name,'.$category->id,
             'slug' => 'required|alpha_dash|unique:categories,slug,'.$category->id,
+            'telefono' => 'required|max:8',
         ];
 
         $validatedData = $request->validate($rules);

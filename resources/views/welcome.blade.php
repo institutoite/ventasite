@@ -67,6 +67,17 @@
     .product-link:hover {
       color: #0056b3; /* Cambiar el color del texto cuando se hace hover */
     }
+    @media (max-width: 575px) {
+      .product-card .description,
+      .product-card .btn-buy {
+        display: none; /* Ocultar descripción y botón de compra en pantallas pequeñas */
+      }
+
+      .row.no-gutters > [class*='col-'] {
+        padding-right: 0;
+        padding-left: 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -112,9 +123,9 @@
                     <div class="product-card">
                       <img src="{{ asset('storage/products/'.$product->product_image) }}" alt="Producto 1">
                       <div class="card-body">
-                        <p class="price mb-0">Bs. {{ $product->precio1 }} <span>{{ $product->product_name }}</span></p> 
-                        <h5 class="description">{{ $product->descripcion }}</h5>
-                        <button class="btn btn-buy" onclick="event.stopPropagation();"><i class="fa-solid fa-share-nodes fa-bounce fa-2x"></i></button> <!-- Detener la propagación del evento de clic para que no afecte al enlace -->
+                        <h1><p class="price mb-0">Bs. {{ $product->precio1 }} <span>{{ $product->product_name }}</span></p></h1> 
+                        {{-- <h5 class="description">{{ $product->descripcion }}</h5> --}}
+                        {{-- <button class="btn btn-buy" onclick="event.stopPropagation();"><i class="fa-solid fa-share-nodes fa-bounce fa-2x"></i></button> <!-- Detener la propagación del evento de clic para que no afecte al enlace --> --}}
                       </div>
                     </div>
                   </a>
@@ -141,23 +152,23 @@
               },
               success: function(response) {
                   console.log(response);
-                  response.forEach(product => {
-                  var html = `
-                      <div class="col-6 col-xs-6 col-sm-6 col-md-4 col-lg-3 mb-0"> 
-                          <a href="{{ url("show/producto") }}/${product.id}" class="product-link">
-                              <div class="product-card">
-                                  <img src="{{ asset('storage/products/') }}/${product.product_image}" alt="Producto ${product.id}">
-                                  <div class="card-body">
-                                      <p class="price mb-0">Bs. ${product.precio1} <span>${product.product_name}</span></p> 
-                                      <h5 class="description">${product.descripcion}</h5>
-                                      <button class="btn btn-buy" onclick="event.stopPropagation();"><i class="fa-solid fa-share-nodes fa-bounce fa-2x"></i></button>
-                                  </div>
-                              </div>
-                          </a>
-                      </div>
-                  `;
-                  $("#productos").append(html);
-                });
+                  // response.forEach(product => {
+                  // var html = `
+                  //     <div class="col-6 col-xs-6 col-sm-6 col-md-4 col-lg-3 mb-0"> 
+                  //         <a href="{{ url("show/producto") }}/${product.id}" class="product-link">
+                  //             <div class="product-card">
+                  //                 <img src="{{ asset('storage/products/') }}/${product.product_image}" alt="Producto ${product.id}">
+                  //                 <div class="card-body">
+                  //                     <p class="price mb-0">Bs. ${product.precio1} <span>${product.product_name}</span></p> 
+                  //                     <h5 class="description">${product.descripcion}</h5>
+                  //                     <button class="btn btn-buy" onclick="event.stopPropagation();"><i class="fa-solid fa-share-nodes fa-bounce fa-2x"></i></button>
+                  //                 </div>
+                  //             </div>
+                  //         </a>
+                  //     </div>
+                  // `;
+                  //$("#productos").append(html);
+                //});
               },
               error: function(xhr, status, error) {
                   console.error('Error al cargar productos:', status);
@@ -165,7 +176,7 @@
           });
         }
 
-    $(document).ready(function() {
+    $(document).ready(function(){
         let TypeSearch="";
         $('#categorias, #marcas').change(function() {
         var categoriaSeleccionada = $('#categorias').val();

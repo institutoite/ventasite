@@ -195,7 +195,7 @@ class ProductController extends Controller
         
         $query = Product::query();
         // return response()->json($query);
-        $variable="";
+        $variable="ESPERO";
         if($request->categoria != ""){
             $variable.="entre al if de categoria";
             $query->whereHas('category', function($q) use ($request) {
@@ -209,10 +209,13 @@ class ProductController extends Controller
         }
         
         if(is_null(!($request->query))){
+            $variable.="entre al query";
             $query->where('product_name', 'like', '%'.$request->query.'%')
             ->orWhere('descripcion', 'like', '%'.$request->query.'%');
         }
         
+        return response()->json($request->query);
+
         $products = $query->skip(($request->page - 1) * $perPage)
         ->take($perPage)
         ->get();
