@@ -12,18 +12,12 @@ class AlmacenSeeder extends Seeder
      */
     public function run(): void
     {
-        Almacen::create([
-            "almacen" => 'Zafiro',
-        ]);
-        Almacen::create([
-            "almacen" => 'Win',
-        ]);
-        Almacen::create([
-            "almacen" => 'Ximcruz',
-        ]);
-        Almacen::create([
-            "almacen" => 'Ferrotodo',
-        ]);
+        Almacen::create(["almacen" => 'Abeltron']);
+        Almacen::create(["almacen" => 'Av. Brasil']);
+        Almacen::create(["almacen" => 'Corona']);
+        Almacen::create(["almacen" => 'Toyomaq']);
+        Almacen::create(["almacen" => 'Ximcruz']);
+        Almacen::create(["almacen" => 'Zafiro']);
 
     }
 }

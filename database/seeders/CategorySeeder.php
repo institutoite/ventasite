@@ -13,10 +13,18 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            'Taladro',
-            'Amoladora',
-            'Hidrolavadora',
-            'Power',
+            'Bambozzi',
+            'Brazuca',
+            'Corona',
+            'Ferton',
+            'Ingco',
+            'Mace Plus',
+            'Makawa',
+            'Pawermaq',
+            'Sthulz',
+            'Total',
+            'Uyustools',
+            'Zafiro',
         ];
 
         foreach ($categories as $category) {
@@ -29,7 +37,7 @@ class CategorySeeder extends Seeder
     }
     private function getRandomPhone()
     {
-        $possibleCounts = ["71039910", "71324941", "75553338", "67855168"]; // Definir aquí tus posibles valores para count
+        $possibleCounts = ["67855168", "62718283", "64470649"]; // Definir aquí tus posibles valores para count
         $randomIndex = random_int(0, count($possibleCounts) - 1);
         return $possibleCounts[$randomIndex];
     }
