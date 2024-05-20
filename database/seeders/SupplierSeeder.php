@@ -26,6 +26,7 @@ class SupplierSeeder extends Seeder
             'bank_name' => 'Nombre del Banco',
             'bank_branch' => 'Sucursal del Banco',
             'city' => 'Ciudad del Proveedor Uno',
+            
         ]);
 
         Supplier::create([
