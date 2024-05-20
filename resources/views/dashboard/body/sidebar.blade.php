@@ -23,14 +23,14 @@
                     </a>
                 </li>
 
-                @if (auth()->user()->can('pos.menu'))
+                {{-- @if (auth()->user()->can('pos.menu'))
                 <li class="{{ Request::is('pos*') ? 'active' : '' }}">
                     <a href="{{ route('pos.index') }}" class="svg-icon">
                         <i class="fa-solid fa-cart-shopping"></i>
                         <span class="ml-3">Punto de venta</span>
                     </a>
                 </li>
-                @endif
+                @endif --}}
 
                 <hr>
 
@@ -84,11 +84,11 @@
                                 <i class="fa-solid fa-arrow-right"></i><span>Productos</span>
                             </a>
                         </li>
-                        <li class="{{ Request::is(['products/create']) ? 'active' : '' }}">
+                        {{-- <li class="{{ Request::is(['products/create']) ? 'active' : '' }}">
                             <a href="{{ route('products.create') }}">
                                 <i class="fa-solid fa-arrow-right"></i><span>Agregar producto</span>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="{{ Request::is(['categories*']) ? 'active' : '' }}">
                             <a href="{{ route('categories.index') }}">
                                 <i class="fa-solid fa-arrow-right"></i><span>Categorias</span>
@@ -135,25 +135,25 @@
                 </li>
                 @endif
 
-                @if (auth()->user()->can('supplier.menu'))
+                {{-- @if (auth()->user()->can('supplier.menu'))
                 <li class="{{ Request::is('suppliers*') ? 'active' : '' }}">
                     <a href="{{ route('suppliers.index') }}" class="svg-icon">
                         <i class="fa-solid fa-users"></i>
                         <span class="ml-3">Proveedores</span>
                     </a>
                 </li>
-                @endif
+                @endif --}}
 
                 @if (auth()->user()->can('salary.menu'))
                 <li>
-                    <a href="#advance-salary" class="collapsed" data-toggle="collapse" aria-expanded="false">
+                    {{-- <a href="#advance-salary" class="collapsed" data-toggle="collapse" aria-expanded="false">
                     <i class="fa-solid fa-cash-register"></i>
                         <span class="ml-3">Salario</span>
                         <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
                         </svg>
-                    </a>
-                    <ul id="advance-salary" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
+                    </a> --}}
+                    {{-- <ul id="advance-salary" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
 
                         <li class="{{ Request::is(['advance-salary', 'advance-salary/*/edit']) ? 'active' : '' }}">
                             <a href="{{ route('advance-salary.index') }}">
@@ -175,11 +175,11 @@
                                 <i class="fa-solid fa-arrow-right"></i><span>Historia Pago Salario</span>
                             </a>
                         </li>
-                    </ul>
+                    </ul> --}}
                 </li>
                 @endif
 
-                @if (auth()->user()->can('attendence.menu'))
+                {{-- @if (auth()->user()->can('attendence.menu'))
                 <li>
                     <a href="#attendence" class="collapsed" data-toggle="collapse" aria-expanded="false">
                         <i class="fa-solid fa-calendar-days"></i>
@@ -202,7 +202,7 @@
                         </li>
                     </ul>
                 </li>
-                @endif
+                @endif --}}
 
                 <hr>
 

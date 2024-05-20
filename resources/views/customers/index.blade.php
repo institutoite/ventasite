@@ -65,6 +65,7 @@
                             <th>@sortablelink('name')</th>
                             <th>@sortablelink('phone')</th>
                             <th>Empresa</th>
+                            <th>Fecha</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
@@ -78,6 +79,7 @@
                             <td>{{ $customer->name }}</td>
                             <td> <a href="https://api.whatsapp.com/send?phone=591{{ $customer->phone }}" target="_blank">{{ $customer->phone }}</a></td>
                             <td> {{ $customer->empresa }} </td>
+                            <td> {{ $customer->fecha }} </td>
                             <td>
                                 <div class="d-flex align-items-center list-action">
                                     <a class="badge badge-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"

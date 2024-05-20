@@ -3,29 +3,29 @@
 namespace App\Http\Controllers\Dashboard;
 
 use Exception;
+use App\Models\Marca;
+use App\Models\Almacen;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\Supplier;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\Almacen;
-use App\Models\Marca;
 use App\Models\Sucursal;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Redirect;
-
-use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Writer\Xls;
-use Picqer\Barcode\BarcodeGeneratorHTML;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use Haruncpi\LaravelIdGenerator\IdGenerator;
-use App\Models\ProductoSucursal;
-
+use App\Models\Supplier;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\ProductoSucursal;
+use Illuminate\Support\Facades\URL;
+use App\Http\Controllers\Controller;
+use Intervention\Image\Facades\Image;
 
 use function PHPUnit\Framework\isEmpty;
+use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use Illuminate\Support\Facades\Redirect;
+use PhpOffice\PhpSpreadsheet\Writer\Xls;
+use Picqer\Barcode\BarcodeGeneratorHTML;
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class ProductController extends Controller
 {
@@ -190,36 +190,44 @@ class ProductController extends Controller
     //     }
     // }
 
-    public function productosFiltrados(Request $request){
+    public function productosFiltrados(Request $request ){
+        // $request = new Request();
+        // $request->query="eléctrica";
+        // $request->categoria="";
+        // $request->marca="";
+        // $request->page=1;
+       
         $perPage = 5;
-        
         $query = Product::query();
-        // return response()->json($query);
-        $variable="ESPERO";
+        
+        // $variable="ESPERO";
         if($request->categoria != ""){
-            $variable.="entre al if de categoria";
+            // $variable.="entre al if de categoria";
             $query->whereHas('category', function($q) use ($request) {
                 $q->where('id', $request->categoria);
             });
         }
         
-        if(is_null(!($request->marca))){
-            $variable.="entre al if de marca";
-            $query->where('marca', $request->marca);
+        if($request->marca != ""){
+            // $variable.="entre al if de marca";
+            //$query->where('marca', $request->marca);
+            $query->whereHas('marca', function($qq) use ($request) {
+                $qq->where('id', $request->marca);
+            });
         }
         
-        if(is_null(!($request->query))){
-            $variable.="entre al query";
-            $query->where('product_name', 'like', '%'.$request->query.'%')
-            ->orWhere('descripcion', 'like', '%'.$request->query.'%');
+        if($request->que!=""){
+            $query->where('product_name', 'like', '%'.$request->que.'%')
+            ->orWhere('descripcion', 'like', '%'.$request->que.'%');
+            
         }
         
-        return response()->json($request->query);
-
         $products = $query->skip(($request->page - 1) * $perPage)
+        // $products = $query->skip((1-1) * $perPage)
         ->take($perPage)
         ->get();
         
+       // dd($products);
         return response()->json($products);
     }
 
@@ -337,7 +345,7 @@ class ProductController extends Controller
         return view('products.import');
     }
 
-    public function importStore(Request $request)
+    /*public function importStore(Request $request)
     {
         $request->validate([
             'upload_file' => 'required|file|mimes:xls,xlsx',
@@ -434,7 +442,96 @@ class ProductController extends Controller
         }
         return Redirect::route('products.index')->with('success', '¡Los datos se han importado correctamente!');
     }
+*/
+public function importStore(Request $request)
+{
+    $request->validate([
+        'upload_file' => 'required|file|mimes:xls,xlsx',
+    ]);
 
+    $the_file = $request->file('upload_file');
+    try {
+        $spreadsheet = IOFactory::load($the_file->getRealPath());
+        $sheet = $spreadsheet->getActiveSheet();
+        
+        $row_limit = $sheet->getHighestDataRow();
+        $column_limit = $sheet->getHighestDataColumn();
+        $row_range = range(2, $row_limit);
+        $column_range = range('A', $column_limit);
+        $startcount = 2;
+        
+        foreach ($row_range as $row) {
+            if ($sheet->getCell('H' . $row)->getValue() != "") {
+                $vectorImages = explode(",", $sheet->getCell('H' . $row)->getValue());
+                $images = [];
+                
+                for ($k = 0; $k < count($vectorImages); $k++) {
+                    $product_image = trim($vectorImages[$k]);
+                    try {
+                        // Verifica si la URL es válida
+                        
+                            $image_content = @file_get_contents($product_image);
+                            if ($image_content !== false) {
+                                $image_name = basename($product_image);
+                                $image_path = storage_path('app\\public\\products\\' . $image_name);
+                                //dd($image_path);
+                                file_put_contents($image_path, $image_content);
+                                $images[] = $image_name;
+                            } else {
+                                throw new Exception("No se pudo obtener el contenido de la imagen: $product_image");
+                            }
+                        
+                    } catch (Exception $e) {
+                        // Maneja la excepción (puedes registrar el error en un log)
+                        echo 'Error: ' . $e->getMessage() . "\n";
+                    }
+                }
+
+                // Inicializa las variables de imágenes
+                $imagen1 = $images[0] ?? null;
+                $imagen2 = $images[1] ?? null;
+                $imagen3 = $images[2] ?? null;
+
+                // Obtén los IDs de las relaciones
+                $categoria = Category::where("name", $sheet->getCell('I' . $row)->getValue())->first()->id ?? null;
+                $marca = Marca::where("marca", $sheet->getCell('J' . $row)->getValue())->first()->id ?? null;
+                $almacen = Almacen::where("almacen", $sheet->getCell('K' . $row)->getValue())->first()->id ?? null;
+
+                // Crea el array de datos del producto
+                $data = [
+                    'product_code' => $sheet->getCell('A' . $row)->getValue(),
+                    'product_name' => $sheet->getCell('B' . $row)->getValue(),
+                    'buying_price' => $sheet->getCell('C' . $row)->getValue(),
+                    'precio1' => $sheet->getCell('D' . $row)->getValue(),
+                    'precio2' => $sheet->getCell('E' . $row)->getValue(),
+                    'precio3' => $sheet->getCell('F' . $row)->getValue(),
+                    'precio4' => $sheet->getCell('G' . $row)->getValue(),
+                    'product_image' => $imagen1,
+                    'imagen2' => $imagen2,
+                    'imagen3' => $imagen3,
+                    'category_id' => $categoria,
+                    'marca_id' => $marca,
+                    'almacen_id' => $almacen,
+                    'product_store' => $sheet->getCell('L' . $row)->getValue(),
+                    'supplier_id' => $almacen,
+                    'product_garage' => "",
+                    'product_store' => "",
+                    'buying_date' => null,
+                    'expire_date' => null,
+                ];
+
+                // Inserta el producto en la base de datos
+                Product::insert($data);
+                $startcount++;
+            }
+        }
+
+    } catch (Exception $e) {
+        return Redirect::route('products.index')->with('error', '¡Hubo un problema al cargar los datos!');
+    }
+    
+    return Redirect::route('products.index')->with('success', '¡Los datos se han importado correctamente!');
+}
     public function exportExcel($products){
         ini_set('max_execution_time', 0);
         ini_set('memory_limit', '4000M');

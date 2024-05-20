@@ -43,7 +43,7 @@
                     @foreach ($productos as $producto)
                         <tr id="{{ $producto->id }}">
                             <td>{{ $producto->id }}</td>
-                            <td><img class="crm-profile-pic rounded-circle avatar-100" src="{{ $producto->product_image ? asset('storage/products/'.$producto->product_image) : asset('assets/images/product/default.webp') }}"></td>
+                            <td><img class="crm-profile-pic avatar-100" src="{{ $producto->product_image ? asset('storage/products/'.$producto->product_image) : asset('assets/images/product/default.webp') }}"></td>
                             <td>{{ $producto->product_code }}</td>
                             <td>{{ $producto->product_name }}</td>
                             <td><strong>{{ $producto->precio1 }}Bs.</strong></td>

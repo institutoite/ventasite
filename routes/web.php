@@ -40,8 +40,14 @@ Route::get('/', function () {
     $categorias=Category::all();
     $marcas =Marca::all();
     return view('welcome',compact("categories","products","categorias","marcas"));
-});
+})->name("inicio");
 
+Route::get('/mision', function () {
+    return view("mision");
+})->name("mision");
+Route::get('/ubicaciones', function () {
+    return view("ubicaciones");
+})->name("ubicaciones");
 
 // DEFAULT DASHBOARD & PROFILE
 Route::middleware('auth')->group(function () {

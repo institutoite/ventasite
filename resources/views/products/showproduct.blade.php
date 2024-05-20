@@ -86,30 +86,45 @@
       <div class="col-md-4">
         <div class="product-info">
           <h2>{{ $product->product_name }} </h2>
-          <p class="price">Bs. {{ $product->precio1 }}
-            <a href="https://wa.me/59167855168?text={{str_replace(' ', '%20', $product->descripcion." Bs. ".$product->precio1." ".route('show.product.public',$product->id))}}" target="_blank" rel="noopener noreferrer">
-              <i class="fa-brands fa-whatsapp fa-beat fa-2x" style="color: #00fa60;"></i>
-            </a>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">{{ $product->category->name }}</li>
+              <li class="list-group-item">{{ $product->marca->marca }}</li>
+              <li class="list-group-item">Bs. {{ $product->precio1 }}</li>
+              <li class="list-group-item">{{ $product->category->telefono }}
+                <a href="https://wa.me/591{{$product->category->telefono}}" target="_blank" rel="noopener noreferrer">
+                  <i class="fa-brands fa-whatsapp fa-beat fa-2x" style="color: #00fa60;"></i>
+                </a>
+              </li>
+             
+            </ul>
+            
           </p>
         
-          <button class="btn btn-link share-icon"><i class="fa-solid fa-share-nodes"></i></button>
           <p class="product-description">{{ $product->descripcion }}</p>
-          <a href="https://wa.me/59167855168?text={{str_replace(' ', '%20', $product->descripcion." Bs. ".$product->precio1." ".route('show.product.public',$product->id))}}" class="btn btn-success btn-buy">Enviar</a>
+          <a href="https://wa.me/591{{$product->category->telefono}}?text={{str_replace(' ', '%20', $product->descripcion." Bs. ".$product->precio1." ".route('show.product.public',$product->id))}}" class="btn btn-success btn-buy">Enviar</a>
         </div>
         <h6>producto relacionado</h6>
-        <div class="col-12 mb-0"> 
-          <a href="{{ route("show.product.public",$productosimilar->id) }}" class="product-link"> <!-- Enlace para toda la tarjeta -->
-            <div class="product-card">
-              <img class="d-block w-100" src="{{ asset('storage/products/'.$productosimilar->product_image) }}" alt="Producto 1">
-              <div class="card-body">
-                <p class="price mb-0">Bs. {{ $productosimilar->precio1 }} <span>{{ $productosimilar->product_name }}</span></p> 
-                <h5 class="description">{{ $productosimilar->descripcion }}</h5>
-                <button class="btn btn-buy" onclick="event.stopPropagation();"><i class="fa-solid fa-share-nodes fa-bounce fa-2x"></i></button> <!-- Detener la propagación del evento de clic para que no afecte al enlace -->
-              </div>
+        
+        
+        @isset($productosimilar)
+            <div class="col-12 mb-0"> 
+              <a href="{{ route("show.product.public",$productosimilar->id) }}" class="product-link"> <!-- Enlace para toda la tarjeta -->
+                <div class="product-card">
+                    <img class="d-block w-100" src="{{ asset('storage/products/'.$productosimilar->product_image) }}" alt="Producto 1">
+                    <div class="card-body">
+                        <p class="price mb-0">Bs. {{ $productosimilar->precio1 }} <span>{{ $productosimilar->product_name }}</span></p> 
+                        <h5 class="description">{{ $productosimilar->descripcion }}</h5>
+                      </div>
+                    </div>
+                  </a>
             </div>
-          </a>
+          @else
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>No hay productos!</strong> Similares.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          @endisset
         </div>
-      </div>
     </div>
   </div>
 

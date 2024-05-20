@@ -13,11 +13,11 @@ use PhpOffice\PhpSpreadsheet\Writer\Xls;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Exception;
-
+use Carbon\Carbon;
 use Illuminate\Support\Facades\URL;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use App\Models\ProductoSucursal;
-
+use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Str;
 
 use function PHPUnit\Framework\isEmpty;
@@ -53,7 +53,7 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //  dd($request->all());
+        
         $rules = [
             'photo' => 'image|file|max:1024',
             'name' => 'required|string|max:50',
@@ -66,9 +66,12 @@ class CustomerController extends Controller
             'bank_branch' => 'max:50',
             'city' => 'nullable|string|max:50',
             'address' => 'nullable|string|max:100',
+            'fecha' => 'required',
+            'empresa' => 'required',
         ];
 
         $validatedData = $request->validate($rules);
+        // dd($validatedData);
 
         /**
          * Handle upload image with Storage.
@@ -91,7 +94,7 @@ class CustomerController extends Controller
         return view('customers.import');
     }
 
-    public function importStore(Request $request)
+    /*public function importStore(Request $request)
     {
         $request->validate(['upload_file' => 'required|file|mimes:xls,xlsx']);
         $the_file = $request->file('upload_file');
@@ -110,7 +113,7 @@ class CustomerController extends Controller
                         $product_image = $imagen;
                         $image_content = file_get_contents($product_image);
                         $image_name = basename($product_image);
-                        $image_path = storage_path('app/public/customers/' . $image_name);
+                        $image_path = storage_path('app\\public\\customers\\' . $image_name);
                         file_put_contents($image_path, $image_content);
                     
                         $data=[];
@@ -121,6 +124,7 @@ class CustomerController extends Controller
                             'empresa' =>$sheet->getCell( 'D' . $row )->getValue(),
                             'shopname' =>$sheet->getCell( 'E' . $row )->getValue(),
                             'address' =>$sheet->getCell( 'F' . $row )->getValue(),
+                            'fecha' => $sheet->getCell( 'H' . $row )->getValue(),
                             'email' =>"",
                             'account_holder' =>"",
                             'account_number' =>"",
@@ -137,8 +141,54 @@ class CustomerController extends Controller
             return Redirect::route('customers.index')->with('error', '¡Hubo un problema al cargar los datos!');
         }
         return Redirect::route('customers.index')->with('success', '¡Los datos se han importado correctamente!');
+    }*/
+    public function importStore(Request $request)
+    {
+        $request->validate(['upload_file' => 'required|file|mimes:xls,xlsx']);
+        $the_file = $request->file('upload_file');
+        try {
+            $spreadsheet = IOFactory::load($the_file->getRealPath());
+            $sheet = $spreadsheet->getActiveSheet();
+            $row_limit = $sheet->getHighestDataRow();
+            $column_limit = $sheet->getHighestDataColumn();
+            $row_range = range(2, $row_limit);
+            $startcount = 2;
+            foreach ($row_range as $row) {
+                if ($sheet->getCell('G' . $row)->getValue() != "") {
+                    $imagen = $sheet->getCell('G' . $row)->getValue();
+                    $product_image = $imagen;
+                    // dd($product_image);
+                    $image_content = @file_get_contents($product_image);
+                    $image_name = basename($product_image);
+                    $image_path = storage_path('app\\public\\customers\\' . $image_name);
+                    file_put_contents($image_path, $image_content);
+                    
+                    $data= [
+                        'photo' => basename(str_replace("\\", "\\\\", $imagen)),
+                        'name' => $sheet->getCell('B' . $row)->getValue(),
+                        'phone' => $sheet->getCell('C' . $row)->getValue(),
+                        'empresa' => $sheet->getCell('D' . $row)->getValue(),
+                        'shopname' => $sheet->getCell('E' . $row)->getValue(),
+                        'address' => $sheet->getCell('F' . $row)->getValue(),
+                        'email' => null,
+                        'account_holder' => null,
+                        'account_number' => null,
+                        'bank_name' => null,
+                        'bank_branch' => null,
+                        'city' => null,
+                        'fecha' => Carbon::createFromTimestamp(($sheet->getCell('H' . $row)->getValue() - 25569) * 86400)->format('Y-m-d') ,
+                    ];
+                    // dd($data);
+                    Customer::insert($data);
+                    
+                    $startcount++;
+                }
+            }
+        } catch (Exception $e) {
+            return Redirect::route('customers.index')->with('error', '¡Hubo un problema al cargar los datos!');
+        }
+        return Redirect::route('customers.index')->with('success', '¡Los datos se han importado correctamente!');
     }
-
 
     /**
      * Display the specified resource.

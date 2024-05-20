@@ -13,18 +13,14 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            'Bambozzi',
-            'Brazuca',
-            'Corona',
-            'Ferton',
-            'Ingco',
-            'Mace Plus',
-            'Makawa',
-            'Pawermaq',
-            'Sthulz',
-            'Total',
-            'Uyustools',
-            'Zafiro',
+            'Amoladora Electrica',
+            'Caladora Electrica',
+            'Cepilladora Electrica',
+            'Sierra Circular Electrica',
+            'Destornillador Electrico',
+            'Mace Destornillador Inalambrico',
+            'Taladro Inalambrico',
+            'Famigadora Inalambrica',
         ];
 
         foreach ($categories as $category) {

@@ -82,25 +82,39 @@
 </head>
 <body>
   <!-- Barra de navegación -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  {{-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
       <a class="navbar-brand" href="#"><img src="{{ asset('assets/images/logo/logo.png') }}" alt="Logo de la empresa" width="50"></a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa-brands fa-whatsapp fa-beat fa-2x" style="color: #00fa60;"></i></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('login') }}">Login</a>
-          </li>
+          
         </ul>
       </div>
     </div>
+  </nav> --}}
+
+  <nav class="nav">
+    <a class="nav-link active" aria-current="page" href="#">
+      <img src="{{ asset('assets/images/logo/logo.png') }}" alt="Logo de la empresa" width="100">
+    </a>
+   
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('mision') }}">Misión</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('mision') }}">Visión</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('login') }}">Login</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fa-brands fa-whatsapp fa-beat fa-2x" style="color: #00fa60;"></i></a>
+    </li>
   </nav>
 
   <div class="mt-4">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-2 p-5">
                 <input type="text" id="busqueda" class="form-control mb-3" placeholder="Buscar...">
                 <select id="categorias" class="form-select mb-3">
                     <option value="">Todas las categorías</option>
@@ -147,28 +161,27 @@
               data: { 
                   categoria: categoria,
                   marca: marca,
-                  query: query,
+                  que: query,
                   page: page 
               },
               success: function(response) {
-                  console.log(response);
-                  // response.forEach(product => {
-                  // var html = `
-                  //     <div class="col-6 col-xs-6 col-sm-6 col-md-4 col-lg-3 mb-0"> 
-                  //         <a href="{{ url("show/producto") }}/${product.id}" class="product-link">
-                  //             <div class="product-card">
-                  //                 <img src="{{ asset('storage/products/') }}/${product.product_image}" alt="Producto ${product.id}">
-                  //                 <div class="card-body">
-                  //                     <p class="price mb-0">Bs. ${product.precio1} <span>${product.product_name}</span></p> 
-                  //                     <h5 class="description">${product.descripcion}</h5>
-                  //                     <button class="btn btn-buy" onclick="event.stopPropagation();"><i class="fa-solid fa-share-nodes fa-bounce fa-2x"></i></button>
-                  //                 </div>
-                  //             </div>
-                  //         </a>
-                  //     </div>
-                  // `;
-                  //$("#productos").append(html);
-                //});
+                   response.forEach(product => {
+                    var html = `
+                        <div class="col-6 col-xs-6 col-sm-6 col-md-4 col-lg-3 mb-0"> 
+                            <a href="{{ url("show/producto") }}/${product.id}" class="product-link">
+                                <div class="product-card">
+                                    <img src="{{ asset('storage/products/') }}/${product.product_image}" alt="Producto ${product.id}">
+                                    <div class="card-body">
+                                        <p class="price mb-0">Bs. ${product.precio1} <span>${product.product_name}</span></p> 
+                                        <h5 class="description">${product.descripcion}</h5>
+                              
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    `;
+                  $ ("#productos").append(html);
+                } );
               },
               error: function(xhr, status, error) {
                   console.error('Error al cargar productos:', status);
@@ -178,15 +191,41 @@
 
     $(document).ready(function(){
         let TypeSearch="";
+        /*$('#categorias, #marcas').change(function() {
+            var categoriaSeleccionada = $('#categorias').val();
+            var categoriaSeleccionada = $('#categorias').val();
+            var marcaSeleccionada = $('#marcas').val();
+            var query = $('#busqueda').val();
+            page = 1;
+            $("#productos").empty();
+            cargarProductos(categoriaSeleccionada, marcaSeleccionada, query, page);
+            TypeSearch = "categorias";
+        });*/
+
         $('#categorias, #marcas').change(function() {
-        var categoriaSeleccionada = $('#categorias').val();
-        var marcaSeleccionada = $('#marcas').val();
-        var query = $('#busqueda').val();
-        page = 1;
-        $("#productos").empty();
-        cargarProductos(categoriaSeleccionada, marcaSeleccionada, query, page);
-        TypeSearch = "categorias";
-    });
+            var categoriaSeleccionada = $('#categorias').val();
+            var marcaSeleccionada = $('#marcas').val();
+            var query = $('#busqueda').val();
+            var campoCambiado = $(this).attr('id');
+            page = 1;
+
+            // Limpiar la selección del campo que no cambió
+            if (campoCambiado === 'categorias') {
+                $('#marcas').val('');
+                $('#busqueda').val('');
+
+            } else if (campoCambiado === 'marcas') {
+                $('#categorias').val('');
+                $('#busqueda').val('');
+            }
+
+            // Vaciar el contenedor de productos
+            $("#productos").empty();
+
+            // Cargar productos con la nueva selección
+            cargarProductos(categoriaSeleccionada, marcaSeleccionada, query, page);
+            TypeSearch = campoCambiado;
+        });
 
     $(window).scroll(function() {
         if ($(window).scrollTop() + $(window).height() == $(document).height()) {

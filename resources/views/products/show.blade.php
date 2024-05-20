@@ -62,16 +62,16 @@
                                                 <td>{{ $product->product_code }}</td>
                                             </tr>
                                             <tr>
+                                                <th>Almacen</th>
+                                                <td>{{ $product->almacen->almacen }}</td>
+                                            </tr>
+                                            <tr>
                                                 <th>Nombre del producto</th>
                                                 <td>{{ $product->product_name }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Categoría</th>
                                                 <td>{{ $product->category->name }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Almacen</th>
-                                                <td>{{ $product->almacen->almacen }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Marca</th>
@@ -94,7 +94,7 @@
                                 <div class="col-md-12">
                                     <div class="profile-img-edit">
                                         <div class="crm-profile-img-edit">
-                                            <img class="" id="image-preview" src="{{ $product->product_image ? asset('storage/products/'.$product->product_image) : asset('assets/images/product/default.webp') }}" alt="profile-pic">
+                                            <img class="" width="100%" id="image-preview" src="{{ $product->product_image ? asset('storage/products/'.$product->product_image) : asset('assets/images/product/default.webp') }}" alt="profile-pic">
                                         </div>
                                     </div>
                                 </div>

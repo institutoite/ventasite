@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('bank_name')->nullable();
             $table->string('bank_branch')->nullable();
             $table->string('city')->nullable();
+            $table->date('fecha')->nullable();
             $table->timestamps();
         });
     }

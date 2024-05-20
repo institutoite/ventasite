@@ -24,6 +24,7 @@ class Customer extends Model
         'bank_name',
         'bank_branch',
         'city',
+        'fecha',
     ];
     public $sortable = [
         'name',
@@ -31,6 +32,8 @@ class Customer extends Model
         'phone',
         'shopname',
         'city',
+        'fecha',
+        'empresa',
     ];
 
     protected $guarded = [
