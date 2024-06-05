@@ -771,13 +771,13 @@ class ProductController extends Controller
             	
                 if($sheet->getCell( 'H' . $row )->getValue()!=""){
                     $vectorImages=explode(",",$sheet->getCell( 'H' . $row )->getValue());
+                    dd($vectorImages);
                     // if($contador==1)
                     // dd($vectorImages);
                     $contador=$contador+1;
                     $variable="";
                     for ($k=0; $k < count($vectorImages) ; $k++) { 
                             $product_image = "/home/tqatssbl/public_html/storage/products/IMAGENES/".$vectorImages[$k];
-                            dd($product_image);
                             $image_content = file_get_contents($product_image);
                             $image_name = basename($product_image);
                             $image_path = storage_path('app/public/products/' . $image_name);
