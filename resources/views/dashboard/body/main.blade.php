@@ -13,7 +13,7 @@
 
         <link rel="stylesheet" href="{{ asset('assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/vendor/remixicon/fonts/remixicon.css') }}">
-
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         @yield('specificpagestyles')
     </head>
 <body>

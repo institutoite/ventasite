@@ -24,8 +24,10 @@ use PhpOffice\PhpSpreadsheet\Writer\Xls;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use ZipArchive;
+
+use GuzzleHttp\Client;
 
 class ProductController extends Controller
 {
@@ -443,7 +445,7 @@ class ProductController extends Controller
         return Redirect::route('products.index')->with('success', '¡Los datos se han importado correctamente!');
     }
 */
-public function importStore(Request $request)
+/*public function importStore(Request $request)
 {
     $request->validate([
         'upload_file' => 'required|file|mimes:xls,xlsx',
@@ -459,7 +461,7 @@ public function importStore(Request $request)
         $row_range = range(2, $row_limit);
         $column_range = range('A', $column_limit);
         $startcount = 2;
-        
+        //dd($row_range);
         foreach ($row_range as $row) {
             if ($sheet->getCell('H' . $row)->getValue() != "") {
                 $vectorImages = explode(",", $sheet->getCell('H' . $row)->getValue());
@@ -469,12 +471,29 @@ public function importStore(Request $request)
                     $product_image = trim($vectorImages[$k]);
                     try {
                         // Verifica si la URL es válida
-                        
-                            $image_content = @file_get_contents($product_image);
+                         	dd($product_image);	
+                            //$image_content = file_get_contents($product_image);
+                            if (is_readable($product_image)) {
+				    $ch = curl_init();
+				    curl_setopt($ch, CURLOPT_URL, 'file://' . $product_image);
+				    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				    $image_content = curl_exec($ch);
+				    dd($image_content);
+				    if ($image_content === false) {
+				        echo "Error de CURL: " . curl_error($ch);
+				    }
+				    curl_close($ch);
+				    // Ahora $image_content tiene el contenido del archivo
+				} else {
+				    echo "El archivo no existe o no es legible.";
+				}
+				                            
+                            
+                           
                             if ($image_content !== false) {
                                 $image_name = basename($product_image);
                                 $image_path = storage_path('app\\public\\products\\' . $image_name);
-                                //dd($image_path);
+                                
                                 file_put_contents($image_path, $image_content);
                                 $images[] = $image_name;
                             } else {
@@ -520,7 +539,7 @@ public function importStore(Request $request)
                     'expire_date' => null,
                 ];
 
-                // Inserta el producto en la base de datos
+                
                 Product::insert($data);
                 $startcount++;
             }
@@ -531,26 +550,108 @@ public function importStore(Request $request)
     }
     
     return Redirect::route('products.index')->with('success', '¡Los datos se han importado correctamente!');
-}
-    public function exportExcel($products){
-        ini_set('max_execution_time', 0);
-        ini_set('memory_limit', '4000M');
+}*/
 
-        try {
-            $spreadSheet = new Spreadsheet();
-            $spreadSheet->getActiveSheet()->getDefaultColumnDimension()->setWidth(20);
-            $spreadSheet->getActiveSheet()->fromArray($products);
-            $Excel_writer = new Xls($spreadSheet);
-            header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="Products_ExportedData.xls"');
-            header('Cache-Control: max-age=0');
-            ob_end_clean();
-            $Excel_writer->save('php://output');
-            exit();
-        } catch (Exception $e) {
-            return;
+/*public function importStore(Request $request)
+{
+    $request->validate([
+        'upload_file' => 'required|file|mimes:xls,xlsx',
+    ]);
+    
+
+    $the_file = $request->file('upload_file');
+    try {
+        $spreadsheet = IOFactory::load($the_file->getRealPath());
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $row_limit = $sheet->getHighestDataRow();
+        $column_limit = $sheet->getHighestDataColumn();
+        $row_range = range(2, $row_limit);
+        $column_range = range('A', $column_limit);
+        $startcount = 2;
+
+        foreach ($row_range as $row) {
+            if ($sheet->getCell('H' . $row)->getValue() != "") {
+                $vectorImages = explode(",", $sheet->getCell('H' . $row)->getValue());
+                $images = [];
+                
+                for ($k = 0; $k < count($vectorImages); $k++) {
+                    $product_image = trim($vectorImages[$k]);
+                    
+
+                    // Ajusta la ruta del archivo en el servidor
+                    
+                    $direccion=str_replace("\\","\\\\",$product_image);
+                    $image_name = basename($direccion);
+                    $image_path = storage_path('app/public/products/MTAG900T.jpg');
+                    $image_content =  urlencode(htmlspecialchars(file_get_contents("D:\IMAGENES\MASEROJO1\MTAG900T.jpg")));
+                    dd($image_content);
+                    Storage::put($image_path, $image_content);
+                    file_put_contents($image_path, $image_content);
+                            
+                            
+                    // Verifica y obtiene el contenido de la imagen en el servidor
+                    if (is_readable($server_path)) {
+                        $image_content = file_get_contents($server_path);
+                        if ($image_content !== false) {
+                            $image_name = basename($product_image);
+                            $image_path = 'public/products/' . $image_name;
+
+                            // Guarda el contenido de la imagen en el almacenamiento público
+                            Storage::put($image_path, $image_content);
+                            $images[] = $image_name;
+                        } else {
+                            throw new Exception("No se pudo obtener el contenido de la imagen: $server_path");
+                        }
+                    } else {
+                        throw new Exception("El archivo no es legible: $server_path");
+                    }
+                }
+
+                // Inicializa las variables de imágenes
+                $imagen1 = $images[0] ?? null;
+                $imagen2 = $images[1] ?? null;
+                $imagen3 = $images[2] ?? null;
+
+                // Obtén los IDs de las relaciones
+                $categoria = Category::where("name", $sheet->getCell('I' . $row)->getValue())->first()->id ?? null;
+                $marca = Marca::where("marca", $sheet->getCell('J' . $row)->getValue())->first()->id ?? null;
+                $almacen = Almacen::where("almacen", $sheet->getCell('K' . $row)->getValue())->first()->id ?? null;
+
+                // Crea el array de datos del producto
+                $data = [
+                    'product_code' => $sheet->getCell('A' . $row)->getValue(),
+                    'product_name' => $sheet->getCell('B' . $row)->getValue(),
+                    'buying_price' => $sheet->getCell('C' . $row)->getValue(),
+                    'precio1' => $sheet->getCell('D' . $row)->getValue(),
+                    'precio2' => $sheet->getCell('E' . $row)->getValue(),
+                    'precio3' => $sheet->getCell('F' . $row)->getValue(),
+                    'precio4' => $sheet->getCell('G' . $row)->getValue(),
+                    'product_image' => $imagen1,
+                    'imagen2' => $imagen2,
+                    'imagen3' => $imagen3,
+                    'category_id' => $categoria,
+                    'marca_id' => $marca,
+                    'almacen_id' => $almacen,
+                    'product_store' => $sheet->getCell('L' . $row)->getValue(),
+                    'supplier_id' => $almacen,
+                    'product_garage' => "",
+                    'product_store' => "",
+                    'buying_date' => null,
+                    'expire_date' => null,
+                ];
+
+                Product::insert($data);
+                $startcount++;
+            }
         }
+
+    } catch (Exception $e) {
+        return redirect()->route('products.index')->with('error', '¡Hubo un problema al cargar los datos!');
     }
+
+    return redirect()->route('products.index')->with('success', '¡Los datos se han importado correctamente!');
+}*/
 
     /**
      *This function loads the customer data from the database then converts it
@@ -630,5 +731,129 @@ public function importStore(Request $request)
 
         return response()->json(['message' => 'Stock actualizado correctamente']);
     }
+    
+
+
+    public function importStore(Request $request)
+    {
+        // Validar el archivo subido
+        $request->validate([
+            'upload_file' => 'required|file|mimes:xlsx,xls',
+        ]);
+        
+        $zip = new ZipArchive();
+        if($zip->open($request->upload_zip)===true){
+         	
+         	$extractPath="/home/tqatssbl/public_html";
+        	$zip->extractTo($extractPath);
+        	$zip->close();
+        }
+        
+        $the_file = $request->file('upload_file');
+        
+        
+        try{
+            $spreadsheet = IOFactory::load($the_file->getRealPath());
+            $sheet        = $spreadsheet->getActiveSheet();
+          
+            // $row_limit    = $sheet->getHighestDataRow();
+            $row_limit    =    $sheet->getHighestDataRow();
+            $column_limit = $sheet->getHighestDataColumn();
+            $row_range    = range( 2, $row_limit );
+            $column_range = range( 'A', $column_limit );
+            $startcount = 2;
+            $data = array();
+            
+            $contador=0;
+           
+            foreach ( $row_range as $row ) {
+            	
+                if($sheet->getCell( 'H' . $row )->getValue()!=""){
+                    $vectorImages=explode(",",$sheet->getCell( 'H' . $row )->getValue());
+                    // if($contador==1)
+                    // dd($vectorImages);
+                    $contador=$contador+1;
+                    for ($k=0; $k < count($vectorImages) ; $k++) { 
+                            $product_image = "/home/tqatssbl/storage/products/".$vectorImages[$k];
+                            $image_content = file_get_contents($product_image);
+                            $image_name = basename($product_image);
+                            $image_path = storage_path('app/public/products/' . $image_name);
+                            file_put_contents($image_path, $image_content);
+                        
+                    } 
+                    
+                    
+                                  
+                    switch (count($vectorImages)) {
+                        case 1:
+                            $imagen1=basename(str_replace("\\","/",$vectorImages[0]));
+                            $imagen2=NULL;
+                            $imagen3=NULL;
+                            break;
+                        case 2:
+                            $imagen1=basename(str_replace("\\","/",$vectorImages[0]));
+                            $imagen2=basename(str_replace("\\","/",$vectorImages[1]));
+                            $imagen3=NULL;
+                            break;
+                        case 3:
+                            $imagen1=basename(str_replace("\\","/",$vectorImages[0]));
+                            $imagen2=basename(str_replace("\\","/",$vectorImages[1]));
+                            $imagen3=basename(str_replace("\\","/",$vectorImages[2]));
+                            break;
+                        
+                        default:
+                            # code...
+                            break;
+                    }
+
+                    $categoria= Category::where("name",$sheet->getCell( 'I' . $row )->getValue())->get()->first()->id;
+                    $marca= Marca::where("marca",$sheet->getCell( 'J' . $row )->getValue())->get()->first()->id;
+                    $almacen= Almacen::where("almacen",$sheet->getCell( 'k' . $row )->getValue())->get()->first()->id;
+
+
+                    $data=[];
+                    $data[] = [
+                        'product_code' => $sheet->getCell( 'A' . $row )->getValue(),
+                        'product_name' => $sheet->getCell( 'B' . $row )->getValue(),
+                        
+                        'buying_price' =>$sheet->getCell( 'C' . $row )->getValue(),
+                        'precio1' =>$sheet->getCell( 'D' . $row )->getValue(),
+                        'precio2' =>$sheet->getCell( 'E' . $row )->getValue(),
+                        'precio3' =>$sheet->getCell( 'F' . $row )->getValue(),
+                        'precio4' =>$sheet->getCell( 'G' . $row )->getValue(),
+
+                        'product_image' =>$imagen1,
+                        'imagen2' => $imagen2,
+                        'imagen3' => $imagen3,
+
+                        'category_id' => $categoria,
+                        'marca_id' => $marca,
+                        'almacen_id' => $almacen,
+                        'product_store' =>$sheet->getCell( 'L' . $row )->getValue(),
+                        
+                        
+                        
+                        'supplier_id' => $almacen,
+                        'product_garage' =>"",
+                        'product_store' =>"",
+                        'buying_date' =>null,
+                        'expire_date' =>null,
+            
+                    ];
+                    //dd("boy por aca");
+                    $startcount++;
+                    Product::insert($data);
+                }
+            }
+
+        } catch (Exception $e) {
+            // $error_code = $e->errorInfo[1];
+            return Redirect::route('products.index')->with('error', '¡Hubo un problema al cargar los datos!');
+        }
+       
+
+    }
+
+
 
 }

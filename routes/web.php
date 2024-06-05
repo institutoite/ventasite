@@ -42,6 +42,12 @@ Route::get('/', function () {
     return view('welcome',compact("categories","products","categorias","marcas"));
 })->name("inicio");
 
+
+Route::get('pruebax', function () {
+    return view("products.impor");
+});
+
+
 Route::get('/mision', function () {
     return view("mision");
 })->name("mision");
@@ -112,7 +118,7 @@ Route::middleware(['permission:product.menu'])->group(function () {
     Route::post('/products/agregar/ajax', [ProductController::class, 'guardarProductosAunaSucursal'])->name('agregar.productos.guardar');
     Route::resource('/products', ProductController::class);
     Route::get('alta/products', [ProductController::class,"darAlta"])->name("producto.dar.alta");
-    
+    Route::post('guardar/productudo', [ProductController::class,"subir"])->name("guardarProducto");
     Route::get('/sucursales/get',[SucursalController::class,"getSucuardales"])->name("get.sucursales");
 });
 Route::get('show/producto/{product}',[ProductController::class,"showProduct"])->name("show.product.public");
@@ -195,5 +201,8 @@ Route::middleware(['permission:roles.menu'])->group(function () {
     Route::put('/role/permission/{id}', [RoleController::class, 'rolePermissionUpdate'])->name('rolePermission.update');
     Route::delete('/role/permission/{id}', [RoleController::class, 'rolePermissionDestroy'])->name('rolePermission.destroy');
 });
+
+
+
 
 require __DIR__.'/auth.php';

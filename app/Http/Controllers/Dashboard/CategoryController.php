@@ -46,7 +46,7 @@ class CategoryController extends Controller
         $rules = [
             'name' => 'required|unique:categories,name',
             'telefono' => 'required|max:8',
-            'slug' => 'required|unique:categorieds,slug|alpha_dash',
+            'slug' => 'required|unique:categories,slug|alpha_dash',
         ];
 
         $validatedData = $request->validate($rules);
