@@ -765,6 +765,7 @@ class ProductController extends Controller
             $data = array();
             
             $contador=0;
+
            
             foreach ( $row_range as $row ) {
             	
@@ -773,8 +774,10 @@ class ProductController extends Controller
                     // if($contador==1)
                     // dd($vectorImages);
                     $contador=$contador+1;
+                    $variable="";
                     for ($k=0; $k < count($vectorImages) ; $k++) { 
                             $product_image = "/home/tqatssbl/storage/products/".$vectorImages[$k];
+                            dd($product_image);
                             $image_content = file_get_contents($product_image);
                             $image_name = basename($product_image);
                             $image_path = storage_path('app/public/products/' . $image_name);
