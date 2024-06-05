@@ -751,6 +751,7 @@ class ProductController extends Controller
         
         $the_file = $request->file('upload_file');
         
+        dd($the_file);
         
         try{
             $spreadsheet = IOFactory::load($the_file->getRealPath());
@@ -771,7 +772,6 @@ class ProductController extends Controller
             	
                 if($sheet->getCell( 'H' . $row )->getValue()!=""){
                     $vectorImages=explode(",",$sheet->getCell( 'H' . $row )->getValue());
-                    dd($vectorImages);
                     // if($contador==1)
                     // dd($vectorImages);
                     $contador=$contador+1;
