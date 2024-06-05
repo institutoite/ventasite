@@ -777,8 +777,8 @@ class ProductController extends Controller
                     $variable="";
                     for ($k=0; $k < count($vectorImages) ; $k++) { 
                             $product_image = "/home/tqatssbl/public_html/storage/products/IMAGENES/".$vectorImages[$k];
-                            $image_content = file_get_contents($product_image);
                             dd($product_image);
+                            $image_content = file_get_contents($product_image);
                             $image_name = basename($product_image);
                             $image_path = storage_path('app/public/products/' . $image_name);
                             file_put_contents($image_path, $image_content);
