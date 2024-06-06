@@ -740,7 +740,7 @@ class ProductController extends Controller
         $request->validate([
             'upload_file' => 'required|file|mimes:xlsx,xls',
         ]);
-        $the_file = $request->file('upload_file');
+        $the_file = $request->file('upload_zip');
         $zip = new ZipArchive();
         if ($zip->open($the_file->getRealPath()) === true) {
             // Extraer cada archivo individualmente al directorio deseado
@@ -758,7 +758,7 @@ class ProductController extends Controller
         }
         
        
-        
+        $the_file = $request->file('upload_file');
         
         try{
             $spreadsheet = IOFactory::load($the_file->getRealPath());
