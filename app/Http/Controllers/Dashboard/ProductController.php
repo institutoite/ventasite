@@ -744,10 +744,10 @@ class ProductController extends Controller
         $zip = new ZipArchive();
         if($zip->open($request->upload_zip)===true){
             
-            $extractPath="/home/tqatssbl/public_html";
+            $extractPath="/home/tqatssbl/public_html/";
         	$zip->extractTo($extractPath);
         	$zip->close();
-            dd("DENTRO DEL IF");
+            
         }
         dd("DESPUES DE IF ");
         
