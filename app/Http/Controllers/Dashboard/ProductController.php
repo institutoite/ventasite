@@ -740,15 +740,14 @@ class ProductController extends Controller
         $request->validate([
             'upload_file' => 'required|file|mimes:xlsx,xls',
         ]);
-        dd($request->all());
         
         $zip = new ZipArchive();
         if($zip->open($request->upload_zip)===true){
-         	
-         	$extractPath="/home/tqatssbl/public_html";
+            $extractPath="/home/tqatssbl/public_html";
         	$zip->extractTo($extractPath);
         	$zip->close();
         }
+        dd($request->all());
         
         $the_file = $request->file('upload_file');
         
