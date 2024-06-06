@@ -755,6 +755,7 @@ class ProductController extends Controller
        
         $the_file = $request->file('upload_file');
         
+        dd($the_file);
         try{
             $spreadsheet = IOFactory::load($the_file->getRealPath());
             $sheet        = $spreadsheet->getActiveSheet();
@@ -774,18 +775,14 @@ class ProductController extends Controller
             	
                 if($sheet->getCell( 'H' . $row )->getValue()!=""){
                     $vectorImages=explode(",",$sheet->getCell( 'H' . $row )->getValue());
-                    // if($contador==1)
-                    // dd($vectorImages);
-                    $contador=$contador+1;
-                    $variable="";
-                    for ($k=0; $k < count($vectorImages) ; $k++) { 
-                            $product_image = "/home/tqatssbl/public_html/storage/products/IMAGENES/".$vectorImages[$k];
-                            $image_content = file_get_contents($product_image);
-                            $image_name = basename($product_image);
-                            $image_path = storage_path('app/public/products/' . $image_name);
-                            file_put_contents($image_path, $image_content);
+                    // for ($k=0; $k < count($vectorImages) ; $k++) { 
+                    //         $product_image = "/home/tqatssbl/public_html/storage/products/IMAGENES/".$vectorImages[$k];
+                    //         $image_content = file_get_contents($product_image);
+                    //         $image_name = basename($product_image);
+                    //         $image_path = storage_path('app/public/products/' . $image_name);
+                    //         file_put_contents($image_path, $image_content);
                         
-                    } 
+                    // } 
                     
                     
                                   
