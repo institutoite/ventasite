@@ -743,11 +743,13 @@ class ProductController extends Controller
         
         $zip = new ZipArchive();
         if($zip->open($request->upload_zip)===true){
+            
+            dd("IF DENTRO=>".$request->all());
             $extractPath="/home/tqatssbl/public_html";
         	$zip->extractTo($extractPath);
         	$zip->close();
         }
-        dd($request->all());
+        dd("DESPUES DE IF => ".$request->all());
         
         $the_file = $request->file('upload_file');
         
