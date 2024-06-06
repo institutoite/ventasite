@@ -743,11 +743,12 @@ class ProductController extends Controller
         
         $zip = new ZipArchive();
         if($zip->open($request->upload_zip)===true){
-         	
-         	$extractPath="/home/tqatssbl/public_html";
+            
+            $extractPath="/home/tqatssbl/public_html/";
         	$zip->extractTo($extractPath);
         	$zip->close(); 
         }
+        dd("DESPUES DE IF ");
         
         $the_file = $request->file('upload_file');
         
@@ -771,7 +772,6 @@ class ProductController extends Controller
             	
                 if($sheet->getCell( 'H' . $row )->getValue()!=""){
                     $vectorImages=explode(",",$sheet->getCell( 'H' . $row )->getValue());
-                    dd($vectorImages);
                     // if($contador==1)
                     // dd($vectorImages);
                     $contador=$contador+1;
