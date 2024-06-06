@@ -740,24 +740,23 @@ class ProductController extends Controller
         $request->validate([
             'upload_file' => 'required|file|mimes:xlsx,xls',
         ]);
-        
+        $the_file = $request->file('upload_file');
         $zip = new ZipArchive();
-        if($zip->open($request->upload_zip)===true){
+        if ($zip->open($uploadedZip->getRealPath()) === true) {
+            // Extraer cada archivo individualmente al directorio deseado
             for ($i = 0; $i < $zip->numFiles; $i++) {
                 $fileInfo = $zip->statIndex($i);
                 $fileName = basename($fileInfo['name']);
     
                 // Copiar el archivo al directorio de extracción
-                copy("zip://{$zipFile->getRealPath()}#{$fileInfo['name']}", "{$extractPath}/{$fileName}");
+                copy("zip://{$the_file->getRealPath()}#{$fileInfo['name']}", "{$extractPath}/{$fileName}");
             }
     
-            // $extractPath=storage_path('app/public/products');
-        	// $zip->extractTo($extractPath);
-        	$zip->close(); 
+            $zip->close();
+            return response()->json(['message' => 'Archivo descomprimido exitosamente.'], 200);
         }
-        dd($extractPath);
         
-        $the_file = $request->file('upload_file');
+       
         
         
         try{
