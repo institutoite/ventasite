@@ -853,7 +853,7 @@ class ProductController extends Controller
             return Redirect::route('products.index')->with('error', '¡Hubo un problema al cargar los datos!');
         }
        
-
+        return redirect()->route("products.index");
     }
 
 
