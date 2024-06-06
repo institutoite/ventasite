@@ -742,7 +742,7 @@ class ProductController extends Controller
         ]);
         $the_file = $request->file('upload_file');
         $zip = new ZipArchive();
-        if ($zip->open($uploadedZip->getRealPath()) === true) {
+        if ($zip->open($the_file->getRealPath()) === true) {
             // Extraer cada archivo individualmente al directorio deseado
             for ($i = 0; $i < $zip->numFiles; $i++) {
                 $fileInfo = $zip->statIndex($i);
