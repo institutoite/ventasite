@@ -744,7 +744,7 @@ class ProductController extends Controller
         $zip = new ZipArchive();
         if($zip->open($request->upload_zip)===true){
             
-            $extractPath="/home/tqatssbl/public_html/";
+            $extractPath=storage_path('app/public/');
         	$zip->extractTo($extractPath);
         	$zip->close(); 
         }
