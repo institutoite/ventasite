@@ -737,11 +737,11 @@ class ProductController extends Controller
     public function importStore(Request $request)
     {
         // Validar el archivo subido
+        dd($request->all());
         $request->validate([
             'upload_file' => 'required|file|mimes:xlsx,xls',
         ]);
         
-        dd($request->all());
         $zip = new ZipArchive();
         if($zip->open($request->upload_zip)===true){
          	
