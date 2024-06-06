@@ -748,7 +748,7 @@ class ProductController extends Controller
         	$zip->extractTo($extractPath);
         	$zip->close(); 
         }
-        dd("DESPUES DE IF ");
+        dd($extractPath);
         
         $the_file = $request->file('upload_file');
         
