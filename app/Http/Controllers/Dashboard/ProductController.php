@@ -746,7 +746,7 @@ class ProductController extends Controller
          	
          	$extractPath="/home/tqatssbl/public_html";
         	$zip->extractTo($extractPath);
-        	$zip->close();
+        	$zip->close(); 
         }
         
         $the_file = $request->file('upload_file');
