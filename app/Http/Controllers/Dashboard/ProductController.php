@@ -743,9 +743,16 @@ class ProductController extends Controller
         
         $zip = new ZipArchive();
         if($zip->open($request->upload_zip)===true){
-            
-            $extractPath=storage_path('app/public/');
-        	$zip->extractTo($extractPath);
+            for ($i = 0; $i < $zip->numFiles; $i++) {
+                $fileInfo = $zip->statIndex($i);
+                $fileName = basename($fileInfo['name']);
+    
+                // Copiar el archivo al directorio de extracción
+                copy("zip://{$zipFile->getRealPath()}#{$fileInfo['name']}", "{$extractPath}/{$fileName}");
+            }
+    
+            // $extractPath=storage_path('app/public/products');
+        	// $zip->extractTo($extractPath);
         	$zip->close(); 
         }
         dd($extractPath);
