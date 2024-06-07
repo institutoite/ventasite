@@ -754,8 +754,6 @@ class ProductController extends Controller
         
        
         $the_file = $request->file('upload_file');
-        
-        // dd($the_file);
         try{
             $spreadsheet = IOFactory::load($the_file->getRealPath());
             $sheet        = $spreadsheet->getActiveSheet();
