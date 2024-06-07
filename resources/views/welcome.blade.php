@@ -136,7 +136,7 @@
                   <a href="{{ route("show.product.public",$product->id) }}" class="product-link"> <!-- Enlace para toda la tarjeta -->
                     <div class="product-card">
                       {{-- <img src="{{ asset('storage/products/'.$product->product_image) }}" alt="{{ $product->product_name }}"> --}}
-                      <img src="{{ storage_path('products/'.$product->product_image) }}" alt="{{ $product->product_name }}">
+                      <img src="{{  asset("storage/products/".$product->product_image) }}" alt="{{ $product->product_name }}">
                       <div class="card-body">
                         <h1><p class="price mb-0">Bs. {{ $product->precio1 }} <span>{{ $product->product_name }}</span></p></h1> 
                         {{-- <h5 class="description">{{ $product->descripcion }}</h5> --}}
@@ -172,7 +172,7 @@
                         <div class="col-6 col-xs-6 col-sm-6 col-md-4 col-lg-3 mb-0"> 
                             <a href="{{ url("show/producto") }}/${product.id}" class="product-link">
                                 <div class="product-card">
-                                    <img src="{{ storage_path('products/')}}/${product.product_image}" alt="Producto ${product.id}">
+                                    <img src="{{  asset('storage/products/')}}${product.product_image}" alt="Producto ${product.id}">
                                     <div class="card-body">
                                         <p class="price mb-0">Bs. ${product.precio1} <span>${product.product_name}</span></p> 
                                         <h5 class="description">${product.descripcion}</h5>
