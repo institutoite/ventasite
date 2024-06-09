@@ -173,7 +173,7 @@
       <a class="nav-link" href="{{ route('login') }}">Login</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="https://wa.me/59167855168'?text=Visité%20su%20página%20web%20para%20obtener%20más%20información" target="_blank"><i class="fa-brands fa-whatsapp fa-beat fa-2x" style="color: #00fa60;"></i></a>
+      <a class="nav-link" href="https://wa.me/59167855168'?text=Visité%20su%20página%20web%20quiero%20obtener%20más%20información" target="_blank"><i class="fa-brands fa-whatsapp fa-beat fa-2x" style="color: #00fa60;"></i></a>
     </li>
   </nav>
 
@@ -196,10 +196,10 @@
                 </select>
 
 
-                <div class="row">
+                <div id="vertical" class="row">
                   <div class="col-12">
                       <div class="content">
-                          <img id="vertical" src="{{asset('assets/images/logo/herramienta.jpg') }}" alt="Imagen de herramientas">
+                          <img src="{{asset('assets/images/logo/herramienta.jpg') }}" alt="Imagen de herramientas">
                       </div>
           
                       <div class="content">
