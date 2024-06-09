@@ -87,17 +87,17 @@
     </div>
   </nav>
 
-  <div class="mt-4">
+  <div class="">
         <div class="row">
             <div class="col-md-2">
-                <input type="text" id="busqueda" class="form-control mb-3" placeholder="Buscar...">
-                <select id="categorias" class="form-select mb-3">
+                <input type="text" id="busqueda" class="form-control" placeholder="Buscar...">
+                <select id="categorias" class="form-select">
                     <option value="">Todas las categorías</option>
                     @foreach ($categorias as $categoria)
                       <option value="{{ $categoria->id }}">{{ $categoria->name }}</option>
                     @endforeach
                 </select>
-                <select id="marcas" class="form-select mb-3">
+                <select id="marcas" class="form-select">
                     <option value="">Todas las marcas</option>
                     @foreach ($marcas as $marca)
                       <option value="{{ $marca->id }}">{{ $marca->marca }}</option>
