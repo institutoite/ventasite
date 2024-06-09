@@ -91,7 +91,7 @@
               <li class="list-group-item">{{ $product->marca->marca }}</li>
               <li class="list-group-item">Bs. {{ $product->precio1 }}</li>
               <li class="list-group-item">{{ $product->category->telefono }}
-                <a href="https://wa.me/591{{$product->category->telefono}}?text={{str_replace(' ', '%20', $product->descripcion." Bs. ".$product->precio1." ".asset('storage/products/'.$product->product_image))}}" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/591{{$product->category->telefono}}.'?text='.route('show.product.public',$product->id)" target="_blank" rel="noopener noreferrer">
                   <i class="fa-brands fa-whatsapp fa-beat fa-2x" style="color: #00fa60;"></i>
                 </a>
               </li>
@@ -101,7 +101,7 @@
           </p>
         
           <p class="product-description">{{ $product->descripcion }}</p>
-          <a href="https://wa.me/591{{$product->category->telefono}}?text={{str_replace(' ', '%20', $product->descripcion." Bs. ".$product->precio1." ".asset('storage/products/'.$product->product_image))}}" class="btn btn-success btn-buy">Enviar</a>
+          <a href="https://wa.me/591{{$product->category->telefono}}?text={{str_replace(' ', '%20', $product->descripcion." Bs. ".$product->precio1." ".route('show.product.public',$product->id))}}" target="_blank" class="btn btn-success btn-buy">Enviar</a>
         </div>
         <h6>producto relacionado</h6>
         
