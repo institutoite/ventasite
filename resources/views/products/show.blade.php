@@ -122,6 +122,18 @@
                         <div class="form-group col-md-6">
                                 <div class="accordion" id="accordionExample">
                                     <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingCero">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCero" aria-expanded="true" aria-controls="collapseCero">
+                                                PRECIO #1
+                                            </button>
+                                        </h2>
+                                        <div id="collapseCero" class="accordion-collapse collapse show" aria-labelledby="headingCero" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body text-right">
+                                                <strong>Bs. {{  $product->buying_price  }}</strong> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingOne">
                                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                                 PRECIO #1
@@ -129,7 +141,7 @@
                                         </h2>
                                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                             <div class="accordion-body text-right">
-                                                <strong>Bs. {{  $product->buying_price  }}</strong> 
+                                                <strong>Bs. {{  $product->precio1  }}</strong> 
                                             </div>
                                         </div>
                                     </div>
@@ -165,7 +177,7 @@
                                         </h2>
                                         <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                                             <div class="accordion-body text-right">
-                                                <strong>Bs. {{  $product->precio3  }}</strong> 
+                                                <strong>Bs. {{  $product->precio4  }}</strong> 
                                             </div>
                                         </div>
                                     </div>
