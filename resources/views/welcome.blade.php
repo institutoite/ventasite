@@ -78,6 +78,13 @@
         padding-right: 0;
         padding-left: 0;
       }
+      #horizontal{
+        display: none;
+      }
+      #vertical{
+        display: none;
+      }
+
     }
 
 
@@ -192,7 +199,7 @@
                 <div class="row">
                   <div class="col-12">
                       <div class="content">
-                          <img src="{{asset('assets/images/logo/herramienta.jpg') }}" alt="Imagen de herramientas">
+                          <img id="vertical" src="{{asset('assets/images/logo/herramienta.jpg') }}" alt="Imagen de herramientas">
                       </div>
           
                       <div class="content">
@@ -227,7 +234,7 @@
           <div class="row justify-content-center">
             <div class="col-12">
                 <div class="horizontal-image-container">
-                    <img src="{{ asset('assets/images/logo/horizontal.png') }}" alt="Imagen Responsiva" class="horizontal-image">
+                    <img id="horizontal" src="{{ asset('assets/images/logo/horizontal.png') }}" alt="Imagen Responsiva" class="horizontal-image">
                 </div>
             </div>
         </div>
