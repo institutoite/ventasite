@@ -91,7 +91,7 @@
               <li class="list-group-item">{{ $product->marca->marca }}</li>
               <li class="list-group-item">Bs. {{ $product->precio1 }}</li>
               <li class="list-group-item">{{ $product->category->telefono }}
-                <a href="https://wa.me/591{{$product->category->telefono}}.'?text='.route('show.product.public',$product->id)" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/591{{$product->category->telefono}}.?text={{ route('show.product.public',$product->id) }}" target="_blank" rel="noopener noreferrer">
                   <i class="fa-brands fa-whatsapp fa-beat fa-2x" style="color: #00fa60;"></i>
                 </a>
               </li>
