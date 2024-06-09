@@ -121,7 +121,7 @@
                     
                         <div class="form-group col-md-6">
                                 <div class="accordion" id="accordionExample">
-                                    @can('ver.costo', $producto)
+                                    @can('ver.costo', $product)
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingCero">
                                                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCero" aria-expanded="true" aria-controls="collapseCero">
