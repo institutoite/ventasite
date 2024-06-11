@@ -742,7 +742,7 @@ class ProductController extends Controller
         ]);
         $the_file = $request->file('upload_zip');
         $zip = new ZipArchive();
-        $extractPath=public_path('storage/products');
+        $extractPath='/home/tqatssbl/public_html/storage/products';
         dd($extractPath);
         if ($zip->open($the_file->getRealPath()) === true) {
             $extractPath=public_path('storage/products');
