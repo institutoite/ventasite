@@ -744,7 +744,6 @@ class ProductController extends Controller
         $zip = new ZipArchive();
         if ($zip->open($the_file->getRealPath()) === true) {
             $extractPath=public_path('storage/products');
-            
             for ($i = 0; $i < $zip->numFiles; $i++) {
                 $fileInfo = $zip->statIndex($i);
                 $fileName = basename($fileInfo['name']);
