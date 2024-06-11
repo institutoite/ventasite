@@ -742,6 +742,8 @@ class ProductController extends Controller
         ]);
         $the_file = $request->file('upload_zip');
         $zip = new ZipArchive();
+        $extractPath=public_path('storage/products');
+        dd($extractPath);
         if ($zip->open($the_file->getRealPath()) === true) {
             $extractPath=public_path('storage/products');
             for ($i = 0; $i < $zip->numFiles; $i++) {
@@ -751,6 +753,7 @@ class ProductController extends Controller
             }
             $zip->close();
         }
+        
         
        
         $the_file = $request->file('upload_file');
