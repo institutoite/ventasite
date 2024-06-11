@@ -6,6 +6,7 @@
   <title>Tienda de Productos</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
   <style>
     /* Estilos personalizados para la tarjeta de producto */
     .product-card {
@@ -77,7 +78,71 @@
         padding-right: 0;
         padding-left: 0;
       }
+      #horizontal{
+        display: none;
+      }
+      #vertical{
+        display: none;
+      }
+
     }
+
+
+    /*
+    parte izquierda 
+    */
+    body {
+            background-color: #f4f4f4;
+        }
+        .content {
+            padding: 1px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .content img {
+            width: 100%;  /* Ajusta el ancho de la imagen */
+            border-radius: 2px;
+        }
+        .content h2 {
+            color: #0056b3;
+            font-size: 1rem;
+            text-align: center;
+        }
+        .content p {
+            font-size: 0.75rem;  /* Texto más pequeño */
+            color: #777;  /* Color gris */
+            text-align: center;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: #0056b3;
+            color: white;
+            padding: 8px 0;
+            margin-top: 10px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .btn:hover {
+            background: #003d7a;
+        }
+
+        /* imagen horizontal */
+
+        .horizontal-image-container {
+            overflow: hidden; /* Oculta cualquier parte de la imagen que salga del contenedor */
+            border: 1px solid #ddd; /* Borde gris claro */
+            border-radius: 5px; /* Bordes redondeados */
+        }
+        .horizontal-image {
+            width: 100%; /* Ancho completo del contenedor */
+            height: 150px; /* Altura fija */
+            object-fit: cover; /* La imagen se ajusta para cubrir el contenedor sin perder la proporción */
+            object-position: center; /* Centra la imagen dentro del contenedor */
+        }
   </style>
 </head>
 <body>
@@ -108,28 +173,72 @@
       <a class="nav-link" href="{{ route('login') }}">Login</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#"><i class="fa-brands fa-whatsapp fa-beat fa-2x" style="color: #00fa60;"></i></a>
+      <a class="nav-link" href="https://wa.me/59167855168?text=Visité%20su%20página%20web%20quiero%20obtener%20más%20información" target="_blank"><i class="fa-brands fa-whatsapp fa-beat fa-2x" style="color: #00fa60;"></i></a>
     </li>
   </nav>
 
-  <div class="mt-4">
+  <div class="container">
+        
         <div class="row">
-            <div class="col-md-2 p-5">
-                <input type="text" id="busqueda" class="form-control mb-3" placeholder="Buscar...">
-                <select id="categorias" class="form-select mb-3">
+            <div class="col-md-2 p-1">
+                <input type="text" id="busqueda" class="form-control mb-2" placeholder="Buscar...">
+                <select id="categorias" class="form-select mb-2">
                     <option value="">Todas las categorías</option>
                     @foreach ($categorias as $categoria)
                       <option value="{{ $categoria->id }}">{{ $categoria->name }}</option>
                     @endforeach
                 </select>
-                <select id="marcas" class="form-select mb-3">
+                <select id="marcas" class="form-select mb-2">
                     <option value="">Todas las marcas</option>
                     @foreach ($marcas as $marca)
                       <option value="{{ $marca->id }}">{{ $marca->marca }}</option>
                     @endforeach
                 </select>
+
+
+                <div id="vertical" class="row">
+                  <div class="col-12">
+                      <div class="content">
+                          <img src="{{asset('assets/images/logo/herramienta.jpg') }}" alt="Imagen de herramientas">
+                      </div>
+          
+                      <div class="content">
+                          <h2>Calidad</h2>
+                          <p><span>Las mejores herramientas del mercado.</span></p>
+                      </div>
+          
+                      <div class="content">
+                          <h2>Promociones</h2>
+                          <p><span>Descuentos en productos seleccionados.</span></p>
+                      </div>
+          
+                      <div class="content">
+                          <h2>Asesoría</h2>
+                          <p><span>Te ayudamos a elegir la herramienta adecuada.</span></p>
+                      </div>
+          
+                      <div class="content">
+                          <h2>Delivery</h2>
+                          <p><span>Entregas a domicilio dentro del 5º anillo.</span></p>
+                      </div>
+          
+                      <div class="content">
+                          <h2>Contacto</h2>
+                          <p><span>Tel:</span></p>
+                          <a href="mailto:[Correo Electrónico]" class="btn">Email</a>
+                      </div>
+                  </div>
+              </div>
             </div>
       <div class="col-md-10">
+          <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="horizontal-image-container">
+                    <img id="horizontal" src="{{ asset('assets/images/logo/horizontal.png') }}" alt="Imagen Responsiva" class="horizontal-image">
+                </div>
+            </div>
+        </div>
+      
             <div id="productos" class="row no-gutters">
                 @foreach ($products as $product)
                 <div class="col-6 col-xs-6 col-sm-6 col-md-4 col-lg-3 mb-0"> 
@@ -153,6 +262,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"></script>
+
   <script>
     var page = 1; 
     function cargarProductos(categoria="", marca="", query="", page) {

@@ -90,7 +90,7 @@
 
                         <div class="row">
                             <div class="form-group col-md-3">
-                                <label for="buying_price">Precio1 <span class="text-danger">*</span></label>
+                                <label for="buying_price">Costo<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('buying_price') is-invalid @enderror" id="buying_price" name="buying_price" value="{{ $producto->buying_price }}" required>
                                 @error('buying_price')
                                     <div class="invalid-feedback">
